@@ -124,7 +124,7 @@ export function Footer() {
 
       <div className="hidden md:block">
         <div className="px-[80px] pt-12 pb-6">
-          <div className="grid grid-cols-4 gap-16">
+          <div className="grid grid-cols-4 gap-[80px]">
             {/* Logo */}
 
             <div className="flex min-h-[364px] flex-col justify-between">
@@ -152,6 +152,7 @@ export function Footer() {
             {/* Navigation */}
 
             <nav className="flex flex-col gap-6">
+              <p className="mb-2 text-[14px] text-[#434547]">Студия</p>
               <Link
                 href="/projects"
                 className="
@@ -223,34 +224,34 @@ export function Footer() {
               <p className="mb-6 text-[14px] text-[#434547]">Следите за нами</p>
 
               <div className="flex flex-col gap-8">
-                <a
-                  href="#"
-                  className="group flex items-center justify-between border-b border-[#111111] pb-1"
-                >
-                  <span className="text-[16px] text-[#18191A]">Instagram</span>
+                <a href="#" className="group flex items-start gap-[8px]">
+                  <span className="border-b border-[#111111] text-[16px] leading-[1] text-[#18191A]">
+                    Instagram
+                  </span>
 
                   <ArrowUpRight
                     size={24}
-                    className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
+                    className="mt-[-4px] transition-transform duration-300"
                   />
                 </a>
 
-                <a
-                  href="#"
-                  className="group flex items-center justify-between border-b border-[#18191A] pb-1"
-                >
-                  <span className="text-[16px] text-[#18191A]">Telegram</span>
+                <a href="#" className="group flex items-start gap-[8px]">
+                  <span className="border-b border-[#111111] text-[16px] leading-[1] text-[#18191A]">
+                    Telegram
+                  </span>
 
                   <ArrowUpRight
                     size={24}
-                    className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
+                    className="mt-[-4px] transition-transform duration-300"
                   />
                 </a>
               </div>
             </div>
           </div>
 
-          <div className="mt-16 grid grid-cols-3 items-center">
+          <div className="mt-16 grid grid-cols-4 items-center">
+            <div />
+
             <p className="text-[12px] text-[#434547]">
               Политика конфиденциальности
             </p>

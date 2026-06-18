@@ -21,7 +21,7 @@ export default function ContactsPage() {
       <section className="mt-[120px] px-5 py-16 lg:px-24 lg:py-24">
         <motion.h2
           {...fadeUp()}
-          className="text-[32px] leading-[90%] font-medium"
+          className="text-[32px] leading-[90%] font-medium lg:text-[44px]"
         >
           Свяжитесь с нами
         </motion.h2>
@@ -34,33 +34,30 @@ export default function ContactsPage() {
           можем помочь вам достичь ваших бизнес-целей.
         </motion.p>
 
-        <div className="grid grid-cols-2 gap-6 mt-16">
+        <div className="grid grid-cols-2 gap-[40px] mt-16 max-w-[500px]">
           <motion.div {...fadeUp(0.2)}>
             <p className="text-[12px] text-[#434547]">Email:</p>
             <p className="mt-2 text-[16px]">Hello@Aspekt.com</p>
 
-            <p className="mt-9 text-[12px] text-[#434547]">Номер телефона:</p>
+            <p className="mt-8 text-[12px] text-[#434547]">Номер телефона:</p>
             <p className="mt-2 text-[16px]">+996 (995) 502 - 598</p>
           </motion.div>
 
-          <motion.div {...fadeUp(0.3)} className="ml-8">
+          <motion.div {...fadeUp(0.3)}>
             <p className="text-[14px] text-[#434547]">Следите за нами</p>
 
-            <div className="mt-8 flex flex-col gap-8.5">
+            <div className="mt-[30px] flex flex-col gap-8">
               <a
-                href="https://instagram.com/turdugullovv"
+                href="..."
                 className="flex items-center gap-[8px] text-[16px] underline"
               >
-                Instagram
-                <ArrowUpRight size={24} strokeWidth={2} />
+                Instagram <ArrowUpRight size={24} strokeWidth={2} />
               </a>
-
               <a
-                href="https://t.me/@Windstealer"
+                href="..."
                 className="flex items-center gap-[8px] text-[16px] underline"
               >
-                Telegram
-                <ArrowUpRight size={24} strokeWidth={2} />
+                Telegram <ArrowUpRight size={24} strokeWidth={2} />
               </a>
             </div>
           </motion.div>

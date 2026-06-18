@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-
+import { useEffect, useState } from "react";
 import { Navbar } from "@/components/navbar";
 import { ServicesSection } from "@/components/services-section";
 import { Footer } from "@/components/footer";
@@ -16,7 +16,7 @@ const team = [
   { name: "Zere", position: "Project manager", image: "/icons/Zere.icon.png" },
   {
     name: "Temirlan",
-    position: "Founder & CEO at Aspekt",
+    position: "Frontend specialist",
     image: "/icons/Temirlan.icon.png",
   },
   {
@@ -70,7 +70,41 @@ const fadeUp = (delay = 0) => ({
   transition: { duration: 0.8, ease: "easeOut", delay },
 });
 
+const heroImages = [
+  "/images/text.about.png",
+  "/images/text.about2.png",
+  "/images/wanderers1.png",
+  "/images/wanderers2.png",
+  "/images/wanderers3.png",
+  "/images/Asmanbank1.png",
+  "/images/Asmanbank2.png",
+  "/images/Asmanbank3.png",
+  "/images/Qeey1.png",
+  "/images/Qeey2.png",
+  "/images/Qeey3.png",
+  "/images/DuffelBalance1.png",
+  "/images/DuffelBalance2.png",
+  "/images/DuffelBalance3.png",
+];
+
 export default function AboutPage() {
+  const [heroImage1, setHeroImage1] = useState(0);
+  const [heroImage2, setHeroImage2] = useState(0);
+
+  useEffect(() => {
+    const interval1 = setInterval(() => {
+      setHeroImage1((prev) => (prev + 1) % heroImages.length);
+    }, 1800);
+
+    const interval2 = setInterval(() => {
+      setHeroImage2((prev) => (prev + 1) % heroImages.length);
+    }, 2800);
+
+    return () => {
+      clearInterval(interval1);
+      clearInterval(interval2);
+    };
+  }, []);
   return (
     <>
       <Navbar />
@@ -86,24 +120,40 @@ export default function AboutPage() {
           >
             Дизайн-команда
             <span className="inline-block mx-2 h-[32px] w-[38px] overflow-hidden align-middle md:mx-4 md:h-[48px] md:w-[56px]">
-              <Image
-                src="/images/text.about.png"
-                alt=""
-                width={56}
-                height={48}
-                className="h-full w-full object-cover"
-              />
+              <motion.div
+                key={heroImage1}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4 }}
+                className="h-full w-full"
+              >
+                <Image
+                  src={heroImages[heroImage1]}
+                  alt=""
+                  width={56}
+                  height={48}
+                  className="h-full w-full object-cover"
+                />
+              </motion.div>
             </span>
             <br />
             для цифровых
             <span className="inline-block mx-2 h-[32px] w-[38px] overflow-hidden align-middle md:mx-4 md:h-[48px] md:w-[56px]">
-              <Image
-                src="/images/text.about2.png"
-                alt=""
-                width={56}
-                height={48}
-                className="h-full w-full object-cover"
-              />
+              <motion.div
+                key={heroImage2}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4 }}
+                className="h-full w-full"
+              >
+                <Image
+                  src={heroImages[heroImage2]}
+                  alt=""
+                  width={56}
+                  height={48}
+                  className="h-full w-full object-cover"
+                />
+              </motion.div>
             </span>
             продуктов
           </motion.h1>

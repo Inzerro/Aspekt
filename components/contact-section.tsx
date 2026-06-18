@@ -17,6 +17,8 @@ export function ContactSection() {
   const [budget, setBudget] = useState("");
   const fileRef = useRef<HTMLInputElement>(null);
 
+  const [phone, setPhone] = useState("");
+
   return (
     <section id="contact" className="px-[16px] md:px-[80px] py-[40px]">
       <div className="rounded-[16px] bg-[#18191A] px-[12px] py-[24px] md:px-[36px] md:py-[28px] md:min-h-[546px]">
@@ -81,13 +83,46 @@ export function ContactSection() {
         {/* FORM */}
         <div className="mt-[28px] grid grid-cols-1 md:grid-cols-3 gap-x-[18px] gap-y-[28px]">
           <input
-            placeholder="Ваше имя *"
+            placeholder="Ваше имя"
             className="w-full bg-transparent border-b border-[#333] pb-4 text-white outline-none placeholder:text-[#B5B5B5]"
           />
-          <input
-            placeholder="+996 *"
-            className="w-full bg-transparent border-b border-[#333] pb-4 text-white outline-none placeholder:text-[#B5B5B5]"
-          />
+          <div className="relative w-full">
+            <input
+              value={phone}
+              placeholder="+996"
+              onFocus={(e) => {
+                if (!phone) {
+                  setPhone("+996 ");
+                }
+
+                setTimeout(() => {
+                  e.currentTarget.setSelectionRange(
+                    e.currentTarget.value.length,
+                    e.currentTarget.value.length,
+                  );
+                }, 0);
+              }}
+              onChange={(e) => {
+                const numbers = e.target.value.replace(/\D/g, "");
+
+                const withoutCode = numbers.startsWith("996")
+                  ? numbers.slice(3)
+                  : numbers;
+
+                setPhone(`+996 ${withoutCode}`);
+              }}
+              className={`
+      w-full
+      bg-transparent
+      border-b
+      border-[#333]
+      pb-4
+      outline-none
+      placeholder:text-[#B5B5B5]
+      ${phone.length > 5 ? "text-white" : "text-[#B5B5B5]"}
+    `}
+            />
+          </div>
           <input
             placeholder="Компания"
             className="w-full bg-transparent border-b border-[#333] pb-4 text-white outline-none placeholder:text-[#B5B5B5]"
@@ -96,7 +131,7 @@ export function ContactSection() {
           <div className="col-span-1 md:col-span-3">
             <textarea
               placeholder="Короткое описание проекта"
-              className="w-full min-h-[80px] resize-none bg-transparent border-b border-[#333] text-white outline-none placeholder:text-[#B5B5B5]"
+              className="w-full min-h-[28px] resize-none bg-transparent border-b border-[#333] text-white outline-none placeholder:text-[#B5B5B5]"
             />
             <p className="mt-[10px] text-[13px] text-white/50">
               Например: Сервис покупки и бронирования авиабилетов

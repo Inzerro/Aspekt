@@ -1,11 +1,11 @@
 "use client";
-
+import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-
 const projects = [
   {
     id: 1,
+    slug: "duffel-balance",
     name: "Duffel Balance",
     type: "Web Dashboard",
     description:
@@ -17,16 +17,20 @@ const projects = [
       "/images/DuffelBalance3.png",
     ],
   },
+
   {
     id: 2,
+    slug: "qeey",
     name: "Qeey",
     type: "Super App",
     description: "Сервис моментального бронирования посуточного жилья",
     icon: "/images/Qeey.Icon.png",
     images: ["/images/Qeey1.png", "/images/Qeey2.png", "/images/Qeey3.png"],
   },
+
   {
     id: 3,
+    slug: "asman-bank",
     name: "Asman bank",
     type: "Website",
     description:
@@ -38,8 +42,10 @@ const projects = [
       "/images/Asmanbank3.png",
     ],
   },
+
   {
     id: 4,
+    slug: "central-asia-wanderers",
     name: "Central Asia Wanderers",
     type: "Website",
     description:
@@ -71,6 +77,7 @@ export function ProjectsSection() {
           {projects.map((project) => (
             <motion.div
               key={project.id}
+              id={project.slug}
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
@@ -134,12 +141,14 @@ export function ProjectsSection() {
                       }
                     `}
                   >
-                    <Image
-                      src={src}
-                      alt={`${project.name} ${i + 1}`}
-                      fill
-                      className="object-cover"
-                    />
+                    <Link href={`/projects#${project.slug}`}>
+                      <Image
+                        src={src}
+                        alt={`${project.name} ${i + 1}`}
+                        fill
+                        className="object-cover"
+                      />
+                    </Link>
                   </motion.div>
                 ))}
               </div>

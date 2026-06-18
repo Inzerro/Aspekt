@@ -1,6 +1,6 @@
 "use client";
-
-import { useState } from "react";
+import Link from "next/link";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 
@@ -10,6 +10,7 @@ import { Footer } from "@/components/footer";
 const projects = [
   {
     id: 1,
+    slug: "duffel-balance",
     name: "Duffel Balance",
     type: "Web Dashboard",
     icon: "/images/Duffel.Icon.png",
@@ -39,6 +40,7 @@ const projects = [
   },
   {
     id: 2,
+    slug: "qeey",
     name: "QEEY",
     type: "Mobile App",
     icon: "/images/QEEY.Icon.png",
@@ -72,6 +74,7 @@ const projects = [
   },
   {
     id: 3,
+    slug: "asman-bank",
     name: "Asman Bank",
     type: "Website",
     icon: "/images/Asmanbank.Icon.png",
@@ -97,6 +100,7 @@ const projects = [
   },
   {
     id: 4,
+    slug: "central-asia-wanderers",
     name: "Central Asia Wanderers",
     type: "Website",
     icon: "/images/Wanderers.Icon.png",
@@ -123,6 +127,25 @@ const projects = [
 export default function ProjectsPage() {
   const [activeProject, setActiveProject] = useState(projects[0]);
 
+  useEffect(() => {
+    const hash = window.location.hash.replace("#", "");
+
+    if (!hash) return;
+
+    const project = projects.find((item) => item.slug === hash);
+
+    if (project) {
+      setActiveProject(project);
+
+      setTimeout(() => {
+        document.getElementById(hash)?.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }, 500);
+    }
+  }, []);
+
   return (
     <>
       <Navbar />
@@ -134,7 +157,7 @@ export default function ProjectsPage() {
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
-              className="text-[24px] font-medium tracking-[-0.04em]"
+              className="text-[24px] font-medium"
             >
               Проекты
             </motion.h1>
@@ -153,6 +176,7 @@ export default function ProjectsPage() {
               {projects.map((project) => (
                 <motion.div
                   key={project.id}
+                  id={project.slug}
                   initial={{ opacity: 0, y: 40 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.2 }}
@@ -319,10 +343,10 @@ export default function ProjectsPage() {
                   </motion.div>
 
                   <div className="mt-10">
-                    <h3 className="max-w-[1000px] text-[24px] font-medium leading-tight tracking-[-0.04em] lg:text-[32px]">
+                    <h3 className="max-w-[1000px] text-[24px] font-medium leading-[32px] lg:text-[32px]">
                       {activeProject.articleTitle}
                     </h3>
-                    <p className="mt-6 max-w-[1000px] text-[16px] font-medium leading-relaxed text-[#18191A]">
+                    <p className="mt-6 max-w-[1000px] text-[16px] font-normal leading-[24px] text-[#18191A]">
                       {activeProject.articleText}
                     </p>
 

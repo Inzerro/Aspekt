@@ -1,8 +1,10 @@
 "use client";
 
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Golos_Text } from "next/font/google";
+import { RadianceText } from "@/components/RadianceText";
+import { MobileRadianceText } from "@/components/MobileRadianceText";
 
 const golosText = Golos_Text({
   subsets: ["latin", "cyrillic"],
@@ -121,6 +123,22 @@ export function HeroSection() {
 
   const text = "ASPEKT DESIGN".split("");
 
+  const WORDS = [
+    "Студия дизайна интерфейсов",
+    "Дизайн-студия цифровых продуктов",
+    "UI/UX агентство",
+  ];
+
+  const [wordIndex, setWordIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setWordIndex((prev) => (prev + 1) % WORDS.length);
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <section
       className="flex
@@ -150,9 +168,9 @@ export function HeroSection() {
             вами
           </motion.h1>
 
-          <p className="mt-[24px] text-[16px] leading-[26px] text-[#18191A]">
-            Студия дизайна интерфейсов
-          </p>
+          <section className="mt-4">
+            <MobileRadianceText />
+          </section>
         </div>
 
         <div className="mt-auto flex items-center justify-between text-[15px] text-[#18191A]">
@@ -192,8 +210,8 @@ export function HeroSection() {
 
             <span />
 
-            <div className="radiance-animated-link justify-self-end text-right text-[16px]">
-              <p className="text-16px">Студия дизайна интерфейсов</p>
+            <div className="justify-self-end text-right text-[16px]">
+              <RadianceText />
             </div>
           </div>
 

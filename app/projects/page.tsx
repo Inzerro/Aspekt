@@ -20,7 +20,7 @@ const projects = [
     industry: "FinTech",
     scope: "UX/UI Design",
     year: "2026",
-    image: "/images/Online.Banking.png",
+    image: "/images/Online.banking.png",
     articleTitle:
       "Революция в банковской сфере: Повышение удобства пользователей с помощью Dello Fintech Banking",
     articleText:

@@ -24,7 +24,7 @@ const projects = [
     name: "Qeey",
     type: "Super App",
     description: "Сервис моментального бронирования посуточного жилья",
-    icon: "/images/Qeey.Icon.png",
+    icon: "/images/Qeey.icon.png",
     images: ["/images/Qeey1.png", "/images/Qeey2.png", "/images/Qeey3.png"],
   },
 

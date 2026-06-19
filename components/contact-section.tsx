@@ -172,7 +172,7 @@ export function ContactSection() {
               className="mt-[14px] flex items-center gap-[10px] rounded-[36px] bg-[#2A2B2C] transition-all px-[20px] h-[36px] text-white cursor-pointer hover:bg-[#3A3B3C] duration-300 ease-out"
             >
               <Image
-                src="/icons/file.icon.png"
+                src="/icons/File.icon.png"
                 alt="File"
                 width={18}
                 height={18}

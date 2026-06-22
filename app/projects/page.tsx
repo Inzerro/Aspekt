@@ -43,7 +43,7 @@ const projects = [
     slug: "qeey",
     name: "QEEY",
     type: "Mobile App",
-    icon: "/images/QEEY.Icon.png",
+    icon: "/images/QEEY.icon.png",
     title: "Qeey",
     description:
       "Qeey — мобильное приложение для мгновенного поиска и бронирования жилья с удобным пользовательским интерфейсом.",
@@ -224,7 +224,7 @@ export default function ProjectsPage() {
             </div>
 
             {/* DESKTOP SIDEBAR */}
-            <aside className="hidden lg:block space-y-3">
+            <aside className="hidden lg:block space-y-2">
               {projects.map((project, index) => {
                 const isActive = activeProject.id === project.id;
                 return (
@@ -239,7 +239,7 @@ export default function ProjectsPage() {
                       delay: index * 0.1,
                     }}
                     onClick={() => setActiveProject(project)}
-                    className="relative h-[60px] w-[308px] overflow-hidden rounded-[12px] bg-white text-left transition-all duration-300 hover:shadow-sm"
+                    className="relative h-[63px] w-[325px] overflow-hidden rounded-[12px] bg-white text-left transition-all duration-300"
                   >
                     {isActive && (
                       <motion.div
@@ -260,14 +260,14 @@ export default function ProjectsPage() {
                             src={project.icon}
                             alt={project.name}
                             fill
-                            className="object-contain p-2"
+                            className="object-contain p-[8px]"
                           />
                         </div>
                         <div>
                           <h3 className="text-[16px] text-[#18191A] font-medium">
                             {project.name}
                           </h3>
-                          <p className="mt-1 text-[14px] text-[#434547]">
+                          <p className="mt-1 text-[14px] text-[#434547] font-normal">
                             {project.type}
                           </p>
                         </div>

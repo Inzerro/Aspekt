@@ -38,7 +38,7 @@ export function RadianceText() {
       }, 30);
 
       return () => clearInterval(anim);
-    }, 5000);
+    }, 2500);
 
     return () => clearInterval(timer);
   }, [index, display]);

@@ -57,7 +57,7 @@ export function ServicesSection() {
                 md:grid-cols-[680px_520px]
                 md:items-center
                 md:justify-between
-                md:py-12
+                md:py-8
               "
             >
               {/* MOBILE */}
@@ -120,7 +120,7 @@ export function ServicesSection() {
                 </p>
               </div>
 
-              <p className="hidden text-[18px] leading-[150%] text-[#18191A] md:block">
+              <p className="hidden text-[18px] leading-[26px] text-[#18191A] md:block">
                 {service.description}
               </p>
             </motion.div>

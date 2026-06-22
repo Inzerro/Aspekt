@@ -70,7 +70,7 @@ const fadeUp = (delay = 0) => ({
   transition: { duration: 0.8, ease: "easeOut", delay },
 });
 
-const heroImages = [
+const heroImages1 = [
   "/images/text.about.png",
   "/images/text.about2.png",
   "/images/wanderers1.png",
@@ -78,6 +78,9 @@ const heroImages = [
   "/images/wanderers3.png",
   "/images/Asmanbank1.png",
   "/images/Asmanbank2.png",
+];
+
+const heroImages2 = [
   "/images/Asmanbank3.png",
   "/images/Qeey1.png",
   "/images/Qeey2.png",
@@ -90,14 +93,13 @@ const heroImages = [
 export default function AboutPage() {
   const [heroImage1, setHeroImage1] = useState(0);
   const [heroImage2, setHeroImage2] = useState(0);
-
   useEffect(() => {
     const interval1 = setInterval(() => {
-      setHeroImage1((prev) => (prev + 1) % heroImages.length);
+      setHeroImage1((prev) => (prev + 1) % heroImages1.length);
     }, 1800);
 
     const interval2 = setInterval(() => {
-      setHeroImage2((prev) => (prev + 1) % heroImages.length);
+      setHeroImage2((prev) => (prev + 1) % heroImages2.length);
     }, 2800);
 
     return () => {
@@ -120,45 +122,32 @@ export default function AboutPage() {
           >
             Дизайн-команда
             <span className="inline-block mx-2 h-[32px] w-[38px] overflow-hidden align-middle md:mx-4 md:h-[48px] md:w-[56px]">
-              <motion.div
-                key={heroImage1}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4 }}
-                className="h-full w-full"
-              >
+              <div className="h-full w-full">
                 <Image
-                  src={heroImages[heroImage1]}
+                  src={heroImages1[heroImage1]}
                   alt=""
                   width={56}
                   height={48}
                   className="h-full w-full object-cover"
                 />
-              </motion.div>
+              </div>
             </span>
             <br />
             для цифровых
             <span className="inline-block mx-2 h-[32px] w-[38px] overflow-hidden align-middle md:mx-4 md:h-[48px] md:w-[56px]">
-              <motion.div
-                key={heroImage2}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4 }}
-                className="h-full w-full"
-              >
+              <div className="h-full w-full">
                 <Image
-                  src={heroImages[heroImage2]}
+                  src={heroImages2[heroImage2]}
                   alt=""
                   width={56}
                   height={48}
                   className="h-full w-full object-cover"
                 />
-              </motion.div>
+              </div>
             </span>
             продуктов
           </motion.h1>
         </div>
-
         <div className="mt-[80px] px-[24px] max-w-[720px] md:mt-[120px] md:ml-[80px] md:px-0">
           <motion.p
             initial={{ opacity: 0, y: 40 }}

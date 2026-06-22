@@ -40,7 +40,7 @@ export default function ContactsPage() {
             <p className="mt-2 text-[16px]">Hello@Aspekt.com</p>
 
             <p className="mt-8 text-[12px] text-[#434547]">Номер телефона:</p>
-            <p className="mt-2 text-[16px]">+996 (995) 502 - 598</p>
+            <p className="mt-2 text-[15px]">+996 (995) 502 - 598</p>
           </motion.div>
 
           <motion.div {...fadeUp(0.3)}>

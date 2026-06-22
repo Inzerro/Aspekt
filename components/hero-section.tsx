@@ -234,20 +234,16 @@ export function HeroSection() {
                   <motion.span
                     variants={{
                       hidden: {
-                        y: "120%",
-                        opacity: 0,
-                        scale: 0.9,
+                        y: "100%",
                       },
                       visible: {
                         y: "0%",
-                        opacity: 1,
-                        scale: 1,
                       },
                     }}
                     transition={{
-                      duration: firstLoad ? 0.8 : 0,
-                      ease: [0.16, 1, 0.3, 1],
-                      delay: firstLoad ? i * 0.06 : 0,
+                      duration: firstLoad ? 1 : 0,
+                      ease: [0.76, 0, 0.24, 1],
+                      delay: firstLoad ? i * 0.04 : 0,
                     }}
                     className="inline-block"
                   >

@@ -34,7 +34,7 @@ export function ContactSection() {
                 <button
                   key={item.full}
                   onClick={() => setSelectedService(item.full)}
-                  className="relative h-[38px] w-full rounded-full px-[16px] md:px-[22px] text-[14px] text-white font-medium cursor-pointer whitespace-nowrap"
+                  className="relative h-[38px] w-full rounded-full px-[16px] md:px-[22px] text-[14px] text-white font-normal cursor-pointer whitespace-nowrap"
                 >
                   {selectedService === item.full && (
                     <motion.div
@@ -75,7 +75,7 @@ export function ContactSection() {
                 width={20}
                 height={20}
               />
-              <span className="text-[16px]">Написать</span>
+              <span className="text-[16px] font-medium">Написать</span>
             </button>
           </div>
         </div>
@@ -84,32 +84,45 @@ export function ContactSection() {
         <div className="mt-[28px] grid grid-cols-1 md:grid-cols-3 gap-x-[18px] gap-y-[28px]">
           <input
             placeholder="Ваше имя"
-            className="w-full bg-transparent border-b border-[#333] pb-4 text-white outline-none placeholder:text-[#B5B5B5]"
+            className="w-full bg-transparent border-b border-[#333] pb-4 text-[18px] text-white outline-none placeholder:text-[#B5B5B5]"
           />
           <div className="relative w-full">
             <input
               value={phone}
               placeholder="+996"
-              onFocus={(e) => {
+              onFocus={() => {
                 if (!phone) {
-                  setPhone("+996 ");
+                  setPhone("+996 (");
                 }
-
-                setTimeout(() => {
-                  e.currentTarget.setSelectionRange(
-                    e.currentTarget.value.length,
-                    e.currentTarget.value.length,
-                  );
-                }, 0);
               }}
               onChange={(e) => {
-                const numbers = e.target.value.replace(/\D/g, "");
+                let value = e.target.value.replace(/\D/g, "");
 
-                const withoutCode = numbers.startsWith("996")
-                  ? numbers.slice(3)
-                  : numbers;
+                if (value.startsWith("996")) {
+                  value = value.slice(3);
+                }
 
-                setPhone(`+996 ${withoutCode}`);
+                value = value.slice(0, 9);
+
+                let formatted = "+996 ";
+
+                if (value.length > 0) {
+                  formatted += `(${value.slice(0, 3)}`;
+                }
+
+                if (value.length >= 4) {
+                  formatted += `) ${value.slice(3, 5)}`;
+                }
+
+                if (value.length >= 6) {
+                  formatted += `-${value.slice(5, 7)}`;
+                }
+
+                if (value.length >= 8) {
+                  formatted += `-${value.slice(7, 9)}`;
+                }
+
+                setPhone(formatted);
               }}
               className={`
       w-full
@@ -119,28 +132,32 @@ export function ContactSection() {
       pb-4
       outline-none
       placeholder:text-[#B5B5B5]
+      text-[18px]
       ${phone.length > 5 ? "text-white" : "text-[#B5B5B5]"}
     `}
             />
           </div>
           <input
             placeholder="Компания"
-            className="w-full bg-transparent border-b border-[#333] pb-4 text-white outline-none placeholder:text-[#B5B5B5]"
+            className="w-full bg-transparent border-b border-[#333] text-[18px] pb-4 text-white outline-none placeholder:text-[#B5B5B5]"
           />
 
           <div className="col-span-1 md:col-span-3">
             <textarea
               placeholder="Короткое описание проекта"
-              className="w-full min-h-[28px] resize-none bg-transparent border-b border-[#333] text-white outline-none placeholder:text-[#B5B5B5]"
+              className="w-full resize-none bg-transparent text-white text-[18px] outline-none placeholder:text-[#B5B5B5]"
             />
-            <p className="mt-[10px] text-[13px] text-white/50">
+
+            <div className="relative -mt-[16px] border-b border-[#333]" />
+
+            <p className="mt-[10px] text-[14px] text-white/50">
               Например: Сервис покупки и бронирования авиабилетов
             </p>
           </div>
 
           {/* BUDGET */}
           <div>
-            <p className="text-white text-[16px] mb-[16px]">Бюджет *</p>
+            <p className="text-white text-[18px] mb-[16px]">Бюджет</p>
             <div className="flex flex-wrap gap-[10px]">
               {budgetOptions.map((item) => (
                 <button
@@ -160,7 +177,7 @@ export function ContactSection() {
 
           {/* FILE */}
           <div className="col-span-1 md:col-span-2 md:ml-50">
-            <p className="text-white text-[16px]">
+            <p className="text-white text-[18px]">
               Технические документы{" "}
               <span className="text-white/50">(Опционально)</span>
             </p>
@@ -169,13 +186,14 @@ export function ContactSection() {
 
             <button
               onClick={() => fileRef.current?.click()}
-              className="mt-[14px] flex items-center gap-[10px] rounded-[36px] bg-[#2A2B2C] transition-all px-[20px] h-[36px] text-white cursor-pointer hover:bg-[#3A3B3C] duration-300 ease-out"
+              className="mt-[14px] flex items-center gap-[10px] rounded-[36px] bg-[#2A2B2C] transition-all pl-[16px] pr-[24px] h-[36px] text-white cursor-pointer hover:bg-[#3A3B3C] duration-300 ease-out"
             >
               <Image
                 src="/icons/File.icon.png"
                 alt="File"
                 width={18}
                 height={18}
+                className="ml-1"
               />
               Прикрепить файл
             </button>

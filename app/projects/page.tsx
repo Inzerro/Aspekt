@@ -43,7 +43,7 @@ const projects = [
     slug: "qeey",
     name: "QEEY",
     type: "Mobile App",
-    icon: "/images/QEEY.icon.png",
+    icon: "/images/Qeey.icon.png",
     title: "Qeey",
     description:
       "Qeey — мобильное приложение для мгновенного поиска и бронирования жилья с удобным пользовательским интерфейсом.",

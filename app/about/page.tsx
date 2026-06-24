@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Navbar } from "@/components/navbar";
 import { ServicesSection } from "@/components/services-section";
 import { Footer } from "@/components/footer";
@@ -71,42 +71,55 @@ const fadeUp = (delay = 0) => ({
 });
 
 const heroImages1 = [
-  "/images/text.about.png",
-  "/images/text.about2.png",
-  "/images/wanderers1.png",
-  "/images/wanderers2.png",
-  "/images/wanderers3.png",
-  "/images/Asmanbank1.png",
-  "/images/Asmanbank2.png",
-];
-
-const heroImages2 = [
-  "/images/Asmanbank3.png",
-  "/images/Qeey1.png",
-  "/images/Qeey2.png",
-  "/images/Qeey3.png",
   "/images/DuffelBalance1.png",
   "/images/DuffelBalance2.png",
   "/images/DuffelBalance3.png",
+  "/images/Qeey1.png",
+  "/images/Qeey2.png",
+  "/images/Qeey3.png",
 ];
 
-export default function AboutPage() {
-  const [heroImage1, setHeroImage1] = useState(0);
-  const [heroImage2, setHeroImage2] = useState(0);
+const heroImages2 = [
+  "/images/Asmanbank1.png",
+  "/images/Asmanbank2.png",
+  "/images/wanderers1.png",
+  "/images/wanderers2.png",
+  "/images/wanderers3.png",
+];
+
+function shuffle<T>(arr: T[]): T[] {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function useShuffleQueue(images: string[], intervalMs: number) {
+  const [current, setCurrent] = useState(images[0]);
+  const queueRef = useRef<string[]>([]);
+
   useEffect(() => {
-    const interval1 = setInterval(() => {
-      setHeroImage1((prev) => (prev + 1) % heroImages1.length);
-    }, 1800);
+    queueRef.current = shuffle(images);
 
-    const interval2 = setInterval(() => {
-      setHeroImage2((prev) => (prev + 1) % heroImages2.length);
-    }, 2800);
+    const interval = setInterval(() => {
+      if (queueRef.current.length === 0) {
+        queueRef.current = shuffle(images);
+      }
+      setCurrent(queueRef.current.shift()!);
+    }, intervalMs);
 
-    return () => {
-      clearInterval(interval1);
-      clearInterval(interval2);
-    };
+    return () => clearInterval(interval);
   }, []);
+
+  return current;
+}
+
+export default function AboutPage() {
+  const heroImage1 = useShuffleQueue(heroImages1, 600);
+  const heroImage2 = useShuffleQueue(heroImages2, 600);
+
   return (
     <>
       <Navbar />
@@ -121,29 +134,35 @@ export default function AboutPage() {
             className="max-w-[1100px] text-center text-[32px] leading-[1.05] tracking-[-0.04em] font-medium md:text-[44px]"
           >
             Дизайн-команда
-            <span className="inline-block mx-2 h-[32px] w-[38px] overflow-hidden align-middle md:mx-4 md:h-[48px] md:w-[56px]">
-              <div className="h-full w-full">
-                <Image
-                  src={heroImages1[heroImage1]}
-                  alt=""
-                  width={56}
-                  height={48}
-                  className="h-full w-full object-cover"
-                />
-              </div>
+            <span
+              className="inline-block mx-2 align-middle md:mx-4"
+              style={{ width: 56, height: 48 }}
+            >
+              <Image
+                key={heroImage2}
+                src={heroImage2}
+                alt=""
+                width={56}
+                height={48}
+                className="object-cover"
+                style={{ width: 56, height: 48 }}
+              />
             </span>
             <br />
             для цифровых
-            <span className="inline-block mx-2 h-[32px] w-[38px] overflow-hidden align-middle md:mx-4 md:h-[48px] md:w-[56px]">
-              <div className="h-full w-full">
-                <Image
-                  src={heroImages2[heroImage2]}
-                  alt=""
-                  width={56}
-                  height={48}
-                  className="h-full w-full object-cover"
-                />
-              </div>
+            <span
+              className="inline-block mx-2 align-middle md:mx-4"
+              style={{ width: 56, height: 48 }}
+            >
+              <Image
+                key={heroImage1}
+                src={heroImage1}
+                alt=""
+                width={56}
+                height={48}
+                className="object-cover"
+                style={{ width: 56, height: 48 }}
+              />
             </span>
             продуктов
           </motion.h1>
@@ -244,7 +263,7 @@ export default function AboutPage() {
             <motion.div
               key={index}
               {...fadeUp(index * 0.1)}
-              className="flex items-center gap-[16px] rounded-[12px] bg-[#F2F3F5] p-[16px] md:p-5"
+              className="flex items-center gap-[16px] h-[68px] w-[426px] rounded-[12px] bg-[#F2F3F5] p-[16px] md:p-5"
             >
               <motion.div
                 initial={{ opacity: 0, scale: 0.96 }}

@@ -6,6 +6,7 @@ import { ArrowUpRight, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const links = [
   { label: "Главная", href: "/" },
@@ -90,6 +91,8 @@ export function Navbar() {
     };
   }, [open]);
 
+  const router = useRouter();
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "backdrop-blur-md" : ""}`}
@@ -135,7 +138,12 @@ export function Navbar() {
           <div className="hidden md:flex items-center gap-4">
             <button
               onClick={() => setDark(!dark)}
-              className="flex h-[46px] w-[46px] cursor-pointer items-center justify-center rounded-full bg-[#F2F3F5] transition-colors hover:bg-[#ECECEC]"
+              className="
+      flex h-[46px] w-[46px]
+      cursor-pointer items-center justify-center
+      rounded-full bg-[#F2F3F5]
+      transition-colors hover:bg-[#ECECEC]
+    "
               aria-label="Toggle theme"
             >
               <Image
@@ -146,24 +154,81 @@ export function Navbar() {
               />
             </button>
 
-            <a
-              href="#"
-              className="flex h-[46px] items-center rounded-full bg-[#F53D18] pl-7 pr-[3px] text-white transition-all duration-300 hover:opacity-90"
+            <button
+              onClick={() => {
+                if (window.location.pathname === "/") {
+                  document.getElementById("contact")?.scrollIntoView({
+                    behavior: "smooth",
+                  });
+                } else {
+                  router.push("/");
+
+                  setTimeout(() => {
+                    document.getElementById("contact")?.scrollIntoView({
+                      behavior: "smooth",
+                    });
+                  }, 500);
+                }
+              }}
+              className="
+    flex h-[46px]
+    items-center
+    rounded-full
+    bg-[#F53D18]
+    pl-7
+    pr-[3px]
+    text-white
+    transition-all
+    duration-300
+    hover:opacity-90
+  "
             >
-              <span className="group/text relative mr-5 overflow-hidden text-[16px] font-medium leading-[22px]">
-                <span className="block transition-transform duration-300 ease-out group-hover/text:-translate-y-[22px]">
+              <span
+                className="
+      group/text relative mr-5
+      overflow-hidden
+      text-[16px]
+      font-medium
+      leading-[22px]
+    "
+              >
+                <span
+                  className="
+        block
+        transition-transform
+        duration-300
+        ease-out
+        group-hover/text:-translate-y-[22px]
+      "
+                >
                   Обсудить проект
                 </span>
-                <span className="absolute left-0 top-[23px] block transition-transform duration-400 ease-out group-hover/text:-translate-y-[22px]">
+
+                <span
+                  className="
+        absolute left-0 top-[23px]
+        block
+        transition-transform
+        duration-300
+        ease-out
+        group-hover/text:-translate-y-[22px]
+      "
+                >
                   Обсудить проект
                 </span>
               </span>
-              <span className="flex h-[40px] w-[40px] items-center justify-center rounded-full bg-white text-black">
+
+              <span
+                className="
+      flex h-[40px] w-[40px]
+      items-center justify-center
+      rounded-full bg-white text-black
+    "
+              >
                 <ArrowUpRight size={20} strokeWidth={2} />
               </span>
-            </a>
+            </button>
           </div>
-
           {/* Mobile Button */}
           <button
             className="md:hidden ml-30 flex h-8 w-6 items-center justify-center rounded-full"

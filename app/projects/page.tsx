@@ -1,5 +1,4 @@
 "use client";
-import Link from "next/link";
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
@@ -151,7 +150,7 @@ export default function ProjectsPage() {
       <Navbar />
 
       <main className="pt-[140px]">
-        <section className="min-h-screen bg-[#F2F3F5] px-[16px] py-10 md:px-[80px] rounded-[12px]">
+        <section className="min-h-screen bg-[#F2F3F5] px-[16px] py-10 md:px-[80px]">
           <div className="mb-10 flex items-center justify-between">
             <motion.h1
               initial={{ opacity: 0, y: 40 }}
@@ -205,26 +204,19 @@ export default function ProjectsPage() {
                     {project.description}
                   </p>
 
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.96 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true, amount: 0.2 }}
-                    transition={{ duration: 0.8, ease: "easeOut", delay: 0.15 }}
-                  >
-                    <Image
-                      src={project.image}
-                      alt=""
-                      width={900}
-                      height={600}
-                      className="mt-[16px] w-full h-auto"
-                    />
-                  </motion.div>
+                  <Image
+                    src={project.image}
+                    alt=""
+                    width={900}
+                    height={600}
+                    className="mt-[16px] w-full h-auto"
+                  />
                 </motion.div>
               ))}
             </div>
 
             {/* DESKTOP SIDEBAR */}
-            <aside className="hidden lg:block space-y-2">
+            <aside className="hidden lg:block self-start sticky top-[100px] space-y-2">
               {projects.map((project, index) => {
                 const isActive = activeProject.id === project.id;
                 return (

@@ -66,7 +66,7 @@ export function ApproachSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.1 }}
-            className="mb-[32px] max-w-[420px] text-[18px] leading-[1.5] text-[#18191A] md:mt-0 md:justify-self-end"
+            className="mb-[32px] mt-7 max-w-[420px] text-[18px] leading-[1.5] text-[#18191A] md:mt-0 md:justify-self-end"
           >
             Работаем итерациями, подключаемся на любом этапе дизайна
           </motion.p>

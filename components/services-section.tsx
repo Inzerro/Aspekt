@@ -33,7 +33,7 @@ export function ServicesSection() {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="mb-[32px] text-[28px] font-medium leading-none text-[#18191A] md:mb-16 md:text-[32px]"
         >
-          <p>Что мы делаем</p>
+          Что мы делаем
         </motion.h2>
 
         <div>
@@ -50,7 +50,7 @@ export function ServicesSection() {
               }}
               className="
                 border-b
-                border-[#D9D9D9]
+                border-[#E6E8EB]
                 pb-[28px]
                 pt-2
                 md:grid

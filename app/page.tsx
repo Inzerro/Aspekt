@@ -8,7 +8,6 @@ import { ServicesSection } from "@/components/services-section";
 import { ApproachSection } from "@/components/approach-section";
 import { ContactSection } from "@/components/contact-section";
 import { Footer } from "@/components/footer";
-import { RadianceText } from "@/components/RadianceText";
 
 export default function Home() {
   const [loaded, setLoaded] = useState(false);
@@ -32,7 +31,6 @@ export default function Home() {
       <Navbar />
 
       <HeroSection loaded={loaded} />
-
       <ProjectsSection />
       <ServicesSection />
       <ApproachSection />

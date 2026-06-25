@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { Navbar } from "@/components/navbar";
 import { HeroSection } from "@/components/hero-section";
@@ -35,7 +35,7 @@ function ContactScrollHandler() {
   return null;
 }
 
-export default function Home() {
+function Home() {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
@@ -54,7 +54,9 @@ export default function Home() {
 
   return (
     <main>
-      <ContactScrollHandler />
+      <Suspense fallback={null}>
+        <ContactScrollHandler />
+      </Suspense>
 
       <Navbar />
 
@@ -67,3 +69,5 @@ export default function Home() {
     </main>
   );
 }
+
+export default Home;

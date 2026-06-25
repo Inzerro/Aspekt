@@ -53,12 +53,27 @@ const bottomVariants = {
   },
 };
 
+function scrollToContact() {
+  const el = document.getElementById("contact");
+  if (el) {
+    const navbarHeight = 96;
+    let top = 0;
+    let node: HTMLElement | null = el;
+    while (node) {
+      top += node.offsetTop;
+      node = node.offsetParent as HTMLElement | null;
+    }
+    window.scrollTo({ top: top - navbarHeight, behavior: "smooth" });
+  }
+}
+
 export function Navbar() {
   const [open, setOpen] = useState(false);
   const [dark, setDark] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
   const pathname = usePathname();
+  const router = useRouter();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10);
@@ -91,7 +106,15 @@ export function Navbar() {
     };
   }, [open]);
 
-  const router = useRouter();
+  // Handle /#contact hash after navigation from another page
+  useEffect(() => {
+    if (pathname === "/") {
+      if (window.location.hash === "#contact") {
+        window.history.replaceState({}, "", "/");
+        setTimeout(() => scrollToContact(), 100);
+      }
+    }
+  }, [pathname]);
 
   return (
     <header
@@ -156,63 +179,55 @@ export function Navbar() {
 
             <button
               onClick={() => {
-                if (window.location.pathname === "/") {
-                  document.getElementById("contact")?.scrollIntoView({
-                    behavior: "smooth",
-                  });
+                if (pathname === "/") {
+                  scrollToContact();
                 } else {
-                  router.push("/");
-
-                  setTimeout(() => {
-                    document.getElementById("contact")?.scrollIntoView({
-                      behavior: "smooth",
-                    });
-                  }, 500);
+                  router.push("/#contact");
                 }
               }}
               className="
-    flex h-[46px]
-    items-center
-    rounded-full
-    bg-[#F53D18]
-    pl-7
-    pr-[3px]
-    text-white
-    transition-all
-    duration-300
-    hover:opacity-90
-  "
+      flex h-[46px]
+      items-center
+      rounded-full
+      bg-[#F53D18]
+      pl-7
+      pr-[3px]
+      text-white
+      transition-all
+      duration-300
+      hover:opacity-90
+    "
             >
               <span
                 className="
-      group/text relative mr-5
-      overflow-hidden
-      text-[16px]
-      font-medium
-      leading-[22px]
-    "
+        group/text relative mr-5
+        overflow-hidden
+        text-[16px]
+        font-medium
+        leading-[22px]
+      "
               >
                 <span
                   className="
-        block
-        transition-transform
-        duration-300
-        ease-out
-        group-hover/text:-translate-y-[22px]
-      "
+          block
+          transition-transform
+          duration-300
+          ease-out
+          group-hover/text:-translate-y-[22px]
+        "
                 >
                   Обсудить проект
                 </span>
 
                 <span
                   className="
-        absolute left-0 top-[23px]
-        block
-        transition-transform
-        duration-300
-        ease-out
-        group-hover/text:-translate-y-[22px]
-      "
+          absolute left-0 top-[23px]
+          block
+          transition-transform
+          duration-300
+          ease-out
+          group-hover/text:-translate-y-[22px]
+        "
                 >
                   Обсудить проект
                 </span>
@@ -220,15 +235,16 @@ export function Navbar() {
 
               <span
                 className="
-      flex h-[40px] w-[40px]
-      items-center justify-center
-      rounded-full bg-white text-black
-    "
+        flex h-[40px] w-[40px]
+        items-center justify-center
+        rounded-full bg-white text-black
+      "
               >
                 <ArrowUpRight size={20} strokeWidth={2} />
               </span>
             </button>
           </div>
+
           {/* Mobile Button */}
           <button
             className="md:hidden ml-30 flex h-8 w-6 items-center justify-center rounded-full"
@@ -316,20 +332,26 @@ export function Navbar() {
               </div>
 
               {/* Button */}
-              <motion.a
+              <motion.button
                 variants={itemVariants}
                 initial="hidden"
                 animate="visible"
                 custom={links.length + 1}
-                href="#contact"
-                onClick={() => setOpen(false)}
+                onClick={() => {
+                  setOpen(false);
+                  if (pathname === "/") {
+                    setTimeout(() => scrollToContact(), 300);
+                  } else {
+                    router.push("/#contact");
+                  }
+                }}
                 className="mt-[40px] flex h-[56px] w-full items-center justify-between rounded-[44px] bg-[#F53D18] pl-[32px] pr-[6px] text-[#fff]"
               >
                 <span className="text-[18px] font-medium">Обсудить проект</span>
                 <div className="flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-[44px] bg-white text-black">
                   <ArrowUpRight size={24} strokeWidth={2} />
                 </div>
-              </motion.a>
+              </motion.button>
 
               {/* Bottom Logo */}
               <motion.div

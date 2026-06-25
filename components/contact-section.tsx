@@ -217,7 +217,6 @@ export function ContactSection() {
   function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0] ?? null;
     setSelectedFile(file);
-    // reset input so the same file can be re-selected after removal
     e.target.value = "";
   }
 
@@ -354,18 +353,14 @@ export function ContactSection() {
 
             {selectedFile ? (
               <div className="mt-[14px] flex items-center gap-[10px]">
-                {/* File pill */}
                 <div className="flex items-center gap-[8px] rounded-[36px] bg-[#2A2B2C] pl-[16px] pr-[24px] h-[36px] w-fit max-w-[202px]">
                   <span className="shrink-0">
                     <PdfIcon />
                   </span>
-
                   <span className="text-white text-[14px] truncate">
                     {selectedFile.name}
                   </span>
                 </div>
-
-                {/* Remove button */}
                 <button
                   onClick={removeFile}
                   className="flex h-[36px] w-[36px] items-center justify-center rounded-full bg-[#2A2B2C] text-white hover:bg-[#3A3B3C] transition-colors duration-300 cursor-pointer text-[24px] leading-none"

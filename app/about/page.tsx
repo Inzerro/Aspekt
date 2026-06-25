@@ -125,43 +125,35 @@ export default function AboutPage() {
       <Navbar />
 
       {/* HERO */}
-      <section className="pt-[120px] pb-[80px] md:pt-[180px] md:pb-[140px]">
-        <div className="flex flex-col items-center">
+      <section className="pt-[120px] pb-[80px] md:pt-[180px] md:pb-[140px] overflow-hidden">
+        <div className="flex flex-col items-center px-[24px] md:px-0">
           <motion.h1
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="max-w-[1100px] text-center text-[32px] leading-[1.05] tracking-[-0.04em] font-medium md:text-[44px]"
+            className="w-full max-w-[1100px] text-center text-[32px] leading-[1.3] tracking-[-0.04em] font-medium md:text-[44px] md:leading-[1.05]"
           >
             Дизайн-команда
-            <span
-              className="inline-block mx-2 align-middle md:mx-4"
-              style={{ width: 56, height: 48 }}
-            >
+            <span className="inline-block mx-2 align-middle md:mx-5 w-[40px] h-[34px] md:w-[56px] md:h-[48px] overflow-hidden shrink-0">
               <Image
                 key={heroImage2}
                 src={heroImage2}
                 alt=""
                 width={56}
                 height={48}
-                className="object-cover"
-                style={{ width: 56, height: 48 }}
+                className="object-cover w-full h-full"
               />
             </span>
             <br />
             для цифровых
-            <span
-              className="inline-block mx-2 align-middle md:mx-4"
-              style={{ width: 56, height: 48 }}
-            >
+            <span className="inline-block mx-2 align-middle md:mx-4 w-[40px] h-[34px] md:w-[56px] md:h-[48px] overflow-hidden shrink-0">
               <Image
                 key={heroImage1}
                 src={heroImage1}
                 alt=""
                 width={56}
                 height={48}
-                className="object-cover"
-                style={{ width: 56, height: 48 }}
+                className="object-cover w-full h-full"
               />
             </span>
             продуктов
@@ -181,7 +173,7 @@ export default function AboutPage() {
       </section>
 
       {/* IMAGES */}
-      <section className="mt-[80px] px-[24px] md:mt-[72px] md:ml-[80px] md:mr-[80px] md:px-0">
+      <section className="mt-[80px] px-[16px] md:mt-[72px] md:ml-[80px] md:mr-[80px] md:px-0">
         <div className="grid grid-cols-1 gap-[24px] lg:grid-cols-[0.8fr_1.6fr] lg:gap-6">
           <motion.div
             {...fadeUp()}
@@ -263,7 +255,7 @@ export default function AboutPage() {
             <motion.div
               key={index}
               {...fadeUp(index * 0.1)}
-              className="flex items-center gap-[16px] h-[68px] w-[426px] rounded-[12px] bg-[#F2F3F5] p-[16px] md:p-5"
+              className="flex items-center gap-[16px] h-[68px] w-full rounded-[12px] bg-[#F2F3F5] p-[16px] md:p-5 md:w-[416px]"
             >
               <motion.div
                 initial={{ opacity: 0, scale: 0.96 }}
@@ -274,6 +266,7 @@ export default function AboutPage() {
                   ease: "easeOut",
                   delay: index * 0.1 + 0.1,
                 }}
+                className="shrink-0"
               >
                 <Image
                   src={member.image}
@@ -284,11 +277,11 @@ export default function AboutPage() {
                 />
               </motion.div>
 
-              <div>
-                <h3 className="text-[18px] leading-[20px] font-medium">
+              <div className="min-w-0">
+                <h3 className="text-[18px] leading-[20px] font-medium truncate">
                   {member.name}
                 </h3>
-                <p className="mt-[4px] text-[14px] leading-[24px] text-[#18191A]">
+                <p className="mt-[4px] text-[14px] leading-[24px] text-[#18191A] truncate">
                   {member.position}
                 </p>
               </div>

@@ -316,7 +316,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <main className="mt-[64px]">
+      <main className="mt-[63px]">
         <Footer />
       </main>
     </>

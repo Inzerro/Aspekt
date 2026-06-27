@@ -16,30 +16,28 @@ const links = [
 ];
 
 const menuVariants = {
-  hidden: { opacity: 0, y: -16, scale: 0.98 },
+  hidden: { opacity: 0, y: "100%" },
   visible: {
     opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1] },
+    y: "0%",
+    transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] },
   },
   exit: {
     opacity: 0,
-    y: -12,
-    scale: 0.98,
-    transition: { duration: 0.25, ease: [0.22, 1, 0.36, 1] },
+    y: "100%",
+    transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1] },
   },
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 16 },
+  hidden: { opacity: 0, y: 20 },
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.35,
+      duration: 0.4,
       ease: [0.22, 1, 0.36, 1],
-      delay: 0.08 + i * 0.06,
+      delay: 0.15 + i * 0.07,
     },
   }),
 };
@@ -49,22 +47,21 @@ const bottomVariants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1], delay: 0.36 },
+    transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1], delay: 0.45 },
   },
 };
 
 function scrollToContact() {
   const el = document.getElementById("contact");
-  if (el) {
-    const navbarHeight = 96;
-    let top = 0;
-    let node: HTMLElement | null = el;
-    while (node) {
-      top += node.offsetTop;
-      node = node.offsetParent as HTMLElement | null;
-    }
-    window.scrollTo({ top: top - navbarHeight, behavior: "smooth" });
+  if (!el) return;
+
+  let top = 0;
+  let node: HTMLElement | null = el;
+  while (node) {
+    top += node.offsetTop;
+    node = node.offsetParent as HTMLElement | null;
   }
+  window.scrollTo({ top: top - 96, behavior: "smooth" });
 }
 
 export function Navbar() {
@@ -88,37 +85,49 @@ export function Navbar() {
   useEffect(() => {
     if (open) {
       const scrollY = window.scrollY;
-      document.body.style.position = "fixed";
-      document.body.style.top = `-${scrollY}px`;
-      document.body.style.width = "100%";
+      requestAnimationFrame(() => {
+        document.body.style.position = "fixed";
+        document.body.style.top = `-${scrollY}px`;
+        document.body.style.width = "100%";
+        document.documentElement.style.overflow = "hidden";
+      });
     } else {
       const scrollY = document.body.style.top;
       document.body.style.position = "";
       document.body.style.top = "";
       document.body.style.width = "";
-      if (scrollY) window.scrollTo(0, parseInt(scrollY || "0") * -1);
+      document.documentElement.style.overflow = "";
+      if (scrollY) window.scrollTo(0, parseInt(scrollY) * -1);
     }
 
     return () => {
       document.body.style.position = "";
       document.body.style.top = "";
       document.body.style.width = "";
+      document.documentElement.style.overflow = "";
     };
   }, [open]);
 
-  // Handle /#contact hash after navigation from another page
   useEffect(() => {
-    if (pathname === "/") {
-      if (window.location.hash === "#contact") {
-        window.history.replaceState({}, "", "/");
-        setTimeout(() => scrollToContact(), 100);
-      }
+    if (pathname === "/" && window.location.hash === "#contact") {
+      window.history.replaceState({}, "", "/");
+      setTimeout(() => scrollToContact(), 100);
     }
   }, [pathname]);
 
+  const handleDiscussClick = () => {
+    if (pathname === "/") {
+      scrollToContact();
+    } else {
+      router.push("/#contact");
+    }
+  };
+
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "backdrop-blur-md" : ""}`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        scrolled ? "backdrop-blur-lg" : ""
+      }`}
     >
       <div className="px-[16px] md:px-[80px] py-6">
         <nav className="relative flex items-center justify-between">
@@ -139,7 +148,7 @@ export function Navbar() {
 
           {/* Desktop Navigation */}
           <div className="absolute left-1/2 -translate-x-1/2 hidden md:block">
-            <ul className="flex h-[46px] items-center rounded-full bg-[#F2F3F5] p-[3px]">
+            <ul className="flex h-[46px] items-center rounded-full bg-[#fff] p-[3px] md:bg-[#f2f3f5]">
               {links.map((link) => (
                 <li key={link.href}>
                   <Link
@@ -161,12 +170,7 @@ export function Navbar() {
           <div className="hidden md:flex items-center gap-4">
             <button
               onClick={() => setDark(!dark)}
-              className="
-      flex h-[46px] w-[46px]
-      cursor-pointer items-center justify-center
-      rounded-full bg-[#F2F3F5]
-      transition-colors hover:bg-[#ECECEC]
-    "
+              className="flex h-[46px] w-[46px] cursor-pointer items-center justify-center rounded-full bg-[#F2F3F5] transition-colors hover:bg-[#ECECEC]"
               aria-label="Toggle theme"
             >
               <Image
@@ -178,68 +182,18 @@ export function Navbar() {
             </button>
 
             <button
-              onClick={() => {
-                if (pathname === "/") {
-                  scrollToContact();
-                } else {
-                  router.push("/#contact");
-                }
-              }}
-              className="
-      flex h-[46px]
-      items-center
-      rounded-full
-      bg-[#F53D18]
-      pl-7
-      pr-[3px]
-      text-white
-      transition-all
-      duration-300
-      hover:opacity-90
-    "
+              onClick={handleDiscussClick}
+              className="flex h-[46px] items-center rounded-full bg-[#F53D18] pl-7 pr-[3px] text-white transition-all duration-300 hover:opacity-90"
             >
-              <span
-                className="
-        group/text relative mr-5
-        overflow-hidden
-        text-[16px]
-        font-medium
-        leading-[22px]
-      "
-              >
-                <span
-                  className="
-          block
-          transition-transform
-          duration-300
-          ease-out
-          group-hover/text:-translate-y-[22px]
-        "
-                >
+              <span className="group/text relative mr-5 overflow-hidden text-[16px] font-medium leading-[22px]">
+                <span className="block transition-transform duration-300 ease-out group-hover/text:-translate-y-[22px]">
                   Обсудить проект
                 </span>
-
-                <span
-                  className="
-          absolute left-0 top-[23px]
-          block
-          transition-transform
-          duration-300
-          ease-out
-          group-hover/text:-translate-y-[22px]
-        "
-                >
+                <span className="absolute left-0 top-[23px] block transition-transform duration-300 ease-out group-hover/text:-translate-y-[22px]">
                   Обсудить проект
                 </span>
               </span>
-
-              <span
-                className="
-        flex h-[40px] w-[40px]
-        items-center justify-center
-        rounded-full bg-white text-black
-      "
-              >
+              <span className="flex h-[40px] w-[40px] items-center justify-center rounded-full bg-white text-black">
                 <ArrowUpRight size={20} strokeWidth={2} />
               </span>
             </button>
@@ -272,7 +226,8 @@ export function Navbar() {
               initial="hidden"
               animate="visible"
               exit="exit"
-              className="fixed top-0 left-0 right-0 bottom-0 z-[99999] bg-[#fff] md:hidden overflow-hidden px-[16px] pt-[24px] pb-[24px] flex flex-col"
+              style={{ willChange: "transform" }}
+              className="fixed top-0 left-0 right-0 bottom-0 z-[99999] flex flex-col overflow-hidden bg-white px-[16px] pt-[24px] pb-[24px] md:hidden"
             >
               {/* Top */}
               <motion.div
@@ -345,10 +300,10 @@ export function Navbar() {
                     router.push("/#contact");
                   }
                 }}
-                className="mt-[40px] flex h-[56px] w-full items-center justify-between rounded-[44px] bg-[#F53D18] pl-[32px] pr-[6px] text-[#fff]"
+                className="mt-[40px] flex h-[56px] w-full items-center justify-between rounded-[44px] bg-[#F53D18] pl-[32px] pr-[2px] text-white"
               >
                 <span className="text-[18px] font-medium">Обсудить проект</span>
-                <div className="flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-[44px] bg-white text-black">
+                <div className="flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-full bg-white text-black">
                   <ArrowUpRight size={24} strokeWidth={2} />
                 </div>
               </motion.button>

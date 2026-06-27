@@ -149,21 +149,21 @@ export default function ProjectsPage() {
     <>
       <Navbar />
 
-      <main className="pt-[140px]">
-        <section className="min-h-screen bg-[#F2F3F5] px-[16px] py-10 md:px-[80px]">
-          <div className="mb-10 flex items-center justify-between">
+      <main className="mt-[90px]">
+        <section className="min-h-screen bg-[#fff] px-[16px] py-10 md:px-[80px] md:bg-[#F2F3F5] rounded-t-lg md:rounded-t-lg md:shadow-none shadow-[0_-2px_6px_rgba(0,0,0,0.05)]">
+          <div className="md:pt-[32px] mt-[-22px] flex items-center justify-between">
             <motion.h1
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
-              className="text-[24px] font-medium"
+              className="text-[24px] font-medium md:pb-[20px] pb-[20px]"
             >
               Проекты
             </motion.h1>
 
             <button
               aria-label="Close"
-              className="text-3xl leading-none transition-opacity hover:opacity-60"
+              className="hidden md:block text-3xl leading-none transition-opacity hover:opacity-60"
             >
               ×
             </button>
@@ -180,7 +180,7 @@ export default function ProjectsPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.2 }}
                   transition={{ duration: 0.8, ease: "easeOut" }}
-                  className="border-b border-[#D9D9D9] pb-[16px]"
+                  className="border-b border-[#E6E8EB] pb-[16px]"
                 >
                   <div className="flex items-center gap-[14px]">
                     <Image
@@ -216,7 +216,7 @@ export default function ProjectsPage() {
             </div>
 
             {/* DESKTOP SIDEBAR */}
-            <aside className="hidden lg:block self-start sticky top-[100px] space-y-2">
+            <aside className="hidden lg:block self-start sticky top-[100px] space-y-1.5 mt-4">
               {projects.map((project, index) => {
                 const isActive = activeProject.id === project.id;
                 return (
@@ -277,7 +277,7 @@ export default function ProjectsPage() {
             </aside>
 
             {/* DESKTOP CONTENT */}
-            <div className="hidden lg:block">
+            <div className="hidden lg:block mt-4">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activeProject.id}

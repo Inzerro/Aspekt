@@ -353,7 +353,7 @@ export function ContactSection() {
 
             {selectedFile ? (
               <div className="mt-[14px] flex items-center gap-[10px]">
-                <div className="flex items-center gap-[8px] rounded-[36px] bg-[#2A2B2C] pl-[16px] pr-[24px] h-[36px] w-fit max-w-[202px]">
+                <div className="flex items-center gap-[8px] rounded-[36px] bg-[#2A2B2C] pl-[16px] pr-[24px] h-[36px] w-fit max-w-[202px] ">
                   <span className="shrink-0">
                     <PdfIcon />
                   </span>

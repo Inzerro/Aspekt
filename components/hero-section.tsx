@@ -161,11 +161,7 @@ export function HeroSection() {
             transition={{ duration: 0.8 }}
             className={`${golosText.className} text-[24px] font-medium leading-[32px] text-[#18191A]`}
           >
-            Мы создаём интерфейс,
-            <br />
-            который растёт вместе с
-            <br />
-            вами
+            Мы создаем интерфейс, который растет вместе с вами
           </motion.h1>
 
           <section className="mt-4">
@@ -192,11 +188,10 @@ export function HeroSection() {
               duration: 0.7,
               ease: [0.25, 0.46, 0.45, 0.94],
             }}
-            className={`${golosText.className} max-w-[31ch] text-center text-[18px] leading-[26px] text-foreground`}
+            className={`${golosText.className} max-w-[500px] text-center text-[18px] leading-[26px] text-foreground`}
           >
-            Мы создаём интерфейс,
-            <br />
-            который растёт вместе с вами
+            Проектируем цифровые продукты, которые выглядят
+            <br /> просто — и работают точно
           </motion.p>
         </div>
 

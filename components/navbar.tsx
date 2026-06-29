@@ -3,7 +3,8 @@
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { ArrowUpRight, X } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, type Variants } from "framer-motion";
+import { useTheme } from "next-themes";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -15,7 +16,7 @@ const links = [
   { label: "Контакты", href: "/contacts" },
 ];
 
-const menuVariants = {
+const menuVariants: Variants = {
   hidden: { opacity: 0, y: "100%" },
   visible: {
     opacity: 1,
@@ -29,7 +30,7 @@ const menuVariants = {
   },
 };
 
-const itemVariants = {
+const itemVariants: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: (i: number) => ({
     opacity: 1,
@@ -42,7 +43,7 @@ const itemVariants = {
   }),
 };
 
-const bottomVariants = {
+const bottomVariants: Variants = {
   hidden: { opacity: 0, y: 12 },
   visible: {
     opacity: 1,
@@ -66,21 +67,20 @@ function scrollToContact() {
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
-  const [dark, setDark] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
 
   const pathname = usePathname();
   const router = useRouter();
+
+  useEffect(() => setMounted(true), []);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
-
-  useEffect(() => {
-    document.documentElement.classList.toggle("dark", dark);
-  }, [dark]);
 
   useEffect(() => {
     if (open) {
@@ -123,6 +123,8 @@ export function Navbar() {
     }
   };
 
+  const isDark = mounted && theme === "dark";
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
@@ -139,24 +141,24 @@ export function Navbar() {
               width={32}
               height={32}
               priority
-              className="object-contain"
+              className="object-contain dark:invert"
             />
-            <span className="text-[16px] font-medium text-[#18191A]">
+            <span className="text-[16px] font-medium text-[#18191A] dark:text-white">
               Aspekt
             </span>
           </a>
 
           {/* Desktop Navigation */}
           <div className="absolute left-1/2 -translate-x-1/2 hidden md:block">
-            <ul className="flex h-[46px] items-center rounded-full bg-[#fff] p-[3px] md:bg-[#f2f3f5]">
+            <ul className="flex h-[46px] items-center rounded-full bg-[#f2f3f5] dark:bg-[#232425] p-[3px]">
               {links.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
                     className={`flex h-[40px] items-center justify-center rounded-full px-7 text-[16px] font-normal transition-all duration-200 ${
                       pathname === link.href
-                        ? "bg-white text-[#111111] shadow-[0_2px_8px_rgba(0,0,0,0.06)]"
-                        : "text-[#111111] hover:bg-white/50"
+                        ? "bg-white dark:bg-[#18191A] text-[#111111] dark:text-white shadow-[0_2px_8px_rgba(0,0,0,0.06)]"
+                        : "text-[#111111] dark:text-white/80 hover:bg-[#18191A] dark:hover:bg-[#18191A]"
                     }`}
                   >
                     {link.label}
@@ -169,21 +171,22 @@ export function Navbar() {
           {/* Right Side */}
           <div className="hidden md:flex items-center gap-4">
             <button
-              onClick={() => setDark(!dark)}
-              className="flex h-[46px] w-[46px] cursor-pointer items-center justify-center rounded-full bg-[#F2F3F5] transition-colors hover:bg-[#ECECEC]"
+              onClick={() => setTheme(isDark ? "light" : "dark")}
+              className="flex h-[44px] w-[44px] cursor-pointer items-center justify-center rounded-full bg-[#F2F3F5] dark:bg-[#232425] transition-colors hover:bg-[#ECECEC] dark:hover:bg-white/20"
               aria-label="Toggle theme"
             >
               <Image
                 src="/icons/Light.icon.png"
-                alt={dark ? "moon" : "sun"}
-                width={dark ? 24 : 22}
-                height={dark ? 24 : 22}
+                alt={isDark ? "moon" : "sun"}
+                width={isDark ? 24 : 22}
+                height={isDark ? 24 : 22}
+                className={isDark ? "invert" : ""}
               />
             </button>
 
             <button
               onClick={handleDiscussClick}
-              className="flex h-[46px] items-center rounded-full bg-[#F53D18] pl-7 pr-[3px] text-white transition-all duration-300 hover:opacity-90"
+              className="flex h-[46px] items-center rounded-full bg-[#F53D18] pl-7 pr-[3px] text-white transition-all duration-300 hover:opacity-90 cursor-pointer"
             >
               <span className="group/text relative mr-5 overflow-hidden text-[16px] font-medium leading-[22px]">
                 <span className="block transition-transform duration-300 ease-out group-hover/text:-translate-y-[22px]">
@@ -206,13 +209,14 @@ export function Navbar() {
             aria-label="Menu"
           >
             {open ? (
-              <X size={28} />
+              <X size={28} className="dark:text-white" />
             ) : (
               <Image
                 src="/icons/Burger.Icon.png"
                 alt="Menu"
                 width={28}
                 height={28}
+                className="dark:invert"
               />
             )}
           </button>
@@ -227,7 +231,7 @@ export function Navbar() {
               animate="visible"
               exit="exit"
               style={{ willChange: "transform" }}
-              className="fixed top-0 left-0 right-0 bottom-0 z-[99999] flex flex-col overflow-hidden bg-white px-[16px] pt-[24px] pb-[24px] md:hidden"
+              className="fixed top-0 left-0 right-0 bottom-0 z-[99999] flex flex-col overflow-hidden bg-white dark:bg-[#0f0f0f] px-[16px] pt-[24px] pb-[24px] md:hidden"
             >
               {/* Top */}
               <motion.div
@@ -238,15 +242,16 @@ export function Navbar() {
                 className="flex items-center justify-between"
               >
                 <div className="flex items-center gap-[8px]">
-                  <div className="flex h-[40px] w-[40px] items-center justify-center rounded-full bg-[#F2F3F5]">
+                  <div className="flex h-[40px] w-[40px] items-center justify-center rounded-full bg-[#F2F3F5] dark:bg-white/10">
                     <Image
                       src="/icons/Light.icon.png"
                       alt="icon"
                       width={24}
                       height={24}
+                      className={isDark ? "invert" : ""}
                     />
                   </div>
-                  <span className="text-[24px] font-medium text-[#18191A]">
+                  <span className="text-[24px] font-medium text-[#18191A] dark:text-[#F2F2F2]">
                     Меню
                   </span>
                 </div>
@@ -254,7 +259,11 @@ export function Navbar() {
                   onClick={() => setOpen(false)}
                   className="flex h-8 w-6 items-center justify-center"
                 >
-                  <X size={28} strokeWidth={2} />
+                  <X
+                    size={28}
+                    strokeWidth={2}
+                    className="dark:text-[#C7C7C7]"
+                  />
                 </button>
               </motion.div>
 
@@ -271,15 +280,15 @@ export function Navbar() {
                     <Link
                       href={link.href}
                       onClick={() => setOpen(false)}
-                      className="flex items-center justify-between border-b border-[#E6E8EB] py-[20px]"
+                      className="flex items-center justify-between border-b border-[#E6E8EB] dark:border-[#2D2E2F] py-[20px]"
                     >
-                      <span className="text-[32px] leading-none font-medium text-[#18191A]">
+                      <span className="text-[32px] leading-none font-medium text-[#18191A] dark:text-[#F2F2F2]">
                         {link.label}
                       </span>
                       <ArrowUpRight
                         size={32}
                         strokeWidth={2}
-                        className="text-[#7A7A7A]"
+                        className="text-[#7A7A7A] dark:text-[#C7C7C7]"
                       />
                     </Link>
                   </motion.div>
@@ -304,7 +313,7 @@ export function Navbar() {
               >
                 <span className="text-[18px] font-medium">Обсудить проект</span>
                 <div className="flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-full bg-white text-black">
-                  <ArrowUpRight size={24} strokeWidth={2} />
+                  <ArrowUpRight size={26} strokeWidth={2} />
                 </div>
               </motion.button>
 
@@ -315,16 +324,16 @@ export function Navbar() {
                 animate="visible"
                 className="mt-auto flex items-center justify-center gap-[16px]"
               >
-                <div className="flex h-[32px] w-[32px] items-center justify-center rounded-full bg-[#18191A]">
+                <div className="flex h-[32px] w-[32px] items-center justify-center rounded-full bg-[#18191A] dark:bg-white/10">
                   <Image
                     src="/images/Logo2.png"
                     alt="Aspekt"
                     width={32}
                     height={32}
-                    className="object-contain"
+                    className="object-contain dark:invert"
                   />
                 </div>
-                <span className="text-[16px] font-medium text-[#18191A]">
+                <span className="text-[16px] font-medium text-[#18191A] dark:text-white">
                   Aspekt
                 </span>
               </motion.div>

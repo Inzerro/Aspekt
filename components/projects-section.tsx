@@ -73,7 +73,7 @@ export function ProjectsSection() {
           Проекты
         </motion.h2>
 
-        <div className="flex flex-col divide-y divide-[#e5e7eb]">
+        <div className="flex flex-col divide-y divide-[#e5e7eb] dark:divide-[#2D2E2F]">
           {projects.map((project) => (
             <motion.div
               key={project.id}
@@ -108,13 +108,13 @@ export function ProjectsSection() {
                       {project.name}
                     </p>
 
-                    <p className="mt-[4px] text-[14px] font-normal text-[#18191A]">
+                    <p className="mt-[4px] text-[14px] font-normal text-[#18191A] dark:text-[#F2F2F2]">
                       {project.type}
                     </p>
                   </div>
                 </div>
 
-                <p className="mt-[16px] max-w-[380px] text-[15px] leading-[1.45] font-normal text-[#18191A]">
+                <p className="mt-[16px] max-w-[380px] text-[15px] leading-[1.45] font-normal text-[#18191A] dark:text-[#F2F2F2]">
                   {project.description}
                 </p>
               </div>

@@ -31,7 +31,7 @@ export function ServicesSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="mb-[32px] text-[28px] font-medium leading-none text-[#18191A] md:mb-16 md:text-[32px]"
+          className="mb-[32px] text-[28px] font-medium leading-none text-[#18191A] dark:text-[#f2f2f2] md:mb-16 md:text-[32px]"
         >
           Что мы делаем
         </motion.h2>
@@ -51,6 +51,7 @@ export function ServicesSection() {
               className="
                 border-b
                 border-[#E6E8EB]
+                dark:border-[#2D2E2F]
                 pb-[28px]
                 pt-2
                 md:grid
@@ -85,11 +86,11 @@ export function ServicesSection() {
                   />
                 </motion.div>
 
-                <h3 className="mb-[20px] text-[24px] font-medium leading-[1.1] text-[#18191A]">
+                <h3 className="mb-[20px] text-[24px] font-medium leading-[1.1] text-[#18191A] dark:text-[#F2F2F2]">
                   {service.name}
                 </h3>
 
-                <p className="text-[16px] leading-[1.45] text-[#18191A]">
+                <p className="text-[16px] leading-[1.45] text-[#18191A] dark:text-[#F2F2F2]">
                   {service.description}
                 </p>
               </div>
@@ -115,12 +116,12 @@ export function ServicesSection() {
                   />
                 </motion.div>
 
-                <p className="text-[24px] font-medium text-[#18191A]">
+                <p className="text-[24px] font-medium text-[#18191A] dark:text-[#F2F2F2]">
                   {service.name}
                 </p>
               </div>
 
-              <p className="hidden text-[18px] leading-[26px] text-[#18191A] md:block">
+              <p className="hidden text-[18px] leading-[26px] text-[#18191A] dark:text-[#F2F2F2] md:block">
                 {service.description}
               </p>
             </motion.div>

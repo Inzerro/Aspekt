@@ -30,7 +30,7 @@ export function HeroSection() {
 
     if (finished) {
       setLoaded(true);
-      setFirstLoad(false);
+      setFirstLoad(true); // ← было false
     }
 
     const handler = () => {
@@ -159,9 +159,10 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 24 }}
             animate={loaded ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
             transition={{ duration: 0.8 }}
-            className={`${golosText.className} text-[24px] font-medium leading-[32px] text-[#18191A]`}
+            className={`${golosText.className} text-[24px] font-medium leading-[32px] text-[#18191A] dark:text-[#F2F2F2]`}
           >
-            Мы создаем интерфейс, который растет вместе с вами
+            Проектируем цифровые продукты, которые выглядят просто — и работают
+            точно
           </motion.h1>
 
           <section className="mt-4">
@@ -169,7 +170,7 @@ export function HeroSection() {
           </section>
         </div>
 
-        <div className="mt-auto flex items-center justify-between text-[15px] text-[#18191A]">
+        <div className="mt-auto flex items-center justify-between text-[15px] text-[#18191A] dark:text-[#F2F2F2]">
           <span className="tabular-nums">
             {datetime.day}, {datetime.date} {datetime.time}
           </span>
@@ -188,7 +189,7 @@ export function HeroSection() {
               duration: 0.7,
               ease: [0.25, 0.46, 0.45, 0.94],
             }}
-            className={`${golosText.className} max-w-[500px] text-center text-[18px] leading-[26px] text-foreground`}
+            className={`${golosText.className} max-w-[500px] text-center text-[18px] leading-[26px] text-foreground dark:text-[#F2F2F2]`}
           >
             Проектируем цифровые продукты, которые выглядят
             <br /> просто — и работают точно
@@ -197,15 +198,17 @@ export function HeroSection() {
 
         <div className="space-y-5">
           <div className="grid w-full grid-cols-[max-content_max-content_1fr_max-content] items-center gap-x-16 text-foreground">
-            <span className="text-[16px] tabular-nums">
+            <span className="text-[16px] tabular-nums dark:text-[#F2F2F2]">
               {datetime.day}, {datetime.date} {datetime.time}
             </span>
 
-            <p className="text-[16px]">Бишкек, Кыргызстан</p>
+            <p className="text-[16px] dark:text-[#F2F2F2]">
+              Бишкек, Кыргызстан
+            </p>
 
             <span />
 
-            <div className="justify-self-end text-right text-[16px]">
+            <div className="justify-self-end text-right text-[16px] dark:text-[#F2F2F2]">
               <RadianceText />
             </div>
           </div>
@@ -225,7 +228,10 @@ export function HeroSection() {
               }}
             >
               {text.map((char, i) => (
-                <span key={i} className="inline-block overflow-hidden">
+                <span
+                  key={i}
+                  className="inline-block overflow-hidden dark:text-[#F2F2F2]"
+                >
                   <motion.span
                     variants={{
                       hidden: {

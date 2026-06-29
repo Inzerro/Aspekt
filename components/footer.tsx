@@ -6,7 +6,7 @@ import Image from "next/image";
 
 export function Footer() {
   return (
-    <footer className="bg-[#F2F3F5]">
+    <footer className="bg-[#F2F3F5] dark:bg-[#232425]">
       {/* ================= MOBILE ================= */}
 
       <div className="block md:hidden px-[16px] pt-[10px] pb-[20px]">
@@ -21,15 +21,15 @@ export function Footer() {
             <Link
               key={item.label}
               href={item.href}
-              className="flex items-center justify-between border-b border-[#E6E8EB] py-[12px]"
+              className="flex items-center justify-between border-b border-[#E6E8EB] dark:border-[#2D2E2F] py-[12px]"
             >
-              <span className="text-[20px] font-medium text-[#18191A]">
+              <span className="text-[20px] font-medium text-[#18191A] dark:text-[#F2F2F2]">
                 {item.label}
               </span>
               <ArrowUpRight
                 size={24}
                 strokeWidth={1.8}
-                className="text-[#707275]"
+                className="text-[#707275] dark:text-[#C7C7C7]"
               />
             </Link>
           ))}
@@ -38,22 +38,24 @@ export function Footer() {
         {/* Contacts */}
         <div className="mb-[16px]">
           <div className="mt-[16px]">
-            <p className="mb-[4px] text-[12px] text-[#555555]">Email:</p>
+            <p className="mb-[4px] text-[12px] text-[#555555] dark:text-[#C7C7C7]">
+              Email:
+            </p>
             <a
               href="mailto:Hello@Aspekt.com"
-              className="text-[16px] leading-none text-[#18191A]"
+              className="text-[16px] leading-none text-[#18191A] dark:text-[#F2F2F2]"
             >
               Hello@Aspekt.com
             </a>
           </div>
 
           <div className="mt-[16px]">
-            <p className="mb-[4px] text-[12px] text-[#555555]">
+            <p className="mb-[4px] text-[12px] text-[#555555] dark:text-[#C7C7C7]">
               Номер телефона:
             </p>
             <a
               href="tel:+996995502598"
-              className="text-[16px] leading-none text-[#18191A]"
+              className="text-[16px] leading-none text-[#18191A] dark:text-[#F2F2F2]"
             >
               +996 (995) 502 - 598
             </a>
@@ -64,23 +66,23 @@ export function Footer() {
         <div className="flex items-end justify-between">
           <div className="flex flex-col gap-[16px]">
             <a href="#" className="flex items-center gap-[8px]">
-              <span className="border-b border-[#18191A] text-[16px] text-[#18191A]">
+              <span className="border-b border-[#18191A] dark:border-[#F2F2F2] text-[16px] text-[#18191A] dark:text-[#F2F2F2]">
                 Instagram
               </span>
               <ArrowUpRight
                 size={24}
                 strokeWidth={2}
-                className="text-[#18191A]"
+                className="text-[#18191A] dark:text-[#C7C7C7]"
               />
             </a>
             <a href="#" className="flex items-center gap-[8px]">
-              <span className="border-b border-[#18191A] text-[16px] text-[#18191A]">
+              <span className="border-b border-[#18191A] dark:border-[#F2F2F2] text-[16px] text-[#18191A] dark:text-[#F2F2F2]">
                 Telegram
               </span>
               <ArrowUpRight
                 size={24}
                 strokeWidth={2}
-                className="text-[#18191A]"
+                className="text-[#18191A] dark:text-[#C7C7C7]"
               />
             </a>
           </div>
@@ -93,11 +95,11 @@ export function Footer() {
         </div>
 
         {/* Bottom */}
-        <div className="mt-[32px] border-t border-[#E5E7EB] pt-[24px]">
-          <p className="text-[12px] text-[#555555]">
+        <div className="mt-[32px] border-t border-[#E5E7EB] dark:border-[#2D2E2F] pt-[24px]">
+          <p className="text-[12px] text-[#555555] dark:text-[#C7C7C7]">
             Политика конфиденциальности
           </p>
-          <p className="mt-[12px] text-[12px] text-[#555555]">
+          <p className="mt-[12px] text-[12px] text-[#555555] dark:text-[#C7C7C7]">
             © 2026 Aspekt design. Все права защищены
           </p>
         </div>
@@ -111,14 +113,16 @@ export function Footer() {
             {/* Logo */}
             <div className="flex min-h-[364px] flex-col justify-between">
               <div>
-                <h2 className="text-[44px] font-medium leading-[0.95] tracking-[-0.04em] text-[#111111]">
+                <h2 className="text-[44px] font-medium leading-[0.95] tracking-[-0.04em] text-[#111111] dark:text-[#f2f2f2]">
                   ASPEKT
                 </h2>
                 <div className="flex items-start gap-3">
                   <h2 className="text-[44px] font-medium leading-[0.95] tracking-[-0.04em] text-[#F53D18]">
                     Design
                   </h2>
-                  <span className="text-[16px] text-[#18191A]">(Studio)</span>
+                  <span className="text-[16px] text-[#18191A] dark:text-[#f2f2f2]">
+                    (Studio)
+                  </span>
                 </div>
               </div>
 
@@ -130,22 +134,24 @@ export function Footer() {
 
             {/* Navigation */}
             <nav className="flex flex-col gap-6">
-              <p className="mb-2 text-[14px] text-[#434547]">Студия</p>
+              <p className="mb-2 text-[14px] text-[#434547] dark:text-[#E5E5E5]">
+                Студия
+              </p>
               <Link
                 href="/projects"
-                className="text-[32px] font-medium leading-none text-[#111111] transition-opacity duration-200"
+                className="text-[32px] font-medium leading-none text-[#18191A] dark:text-[#F2F2F2] transition-opacity duration-200"
               >
                 Проекты
               </Link>
               <Link
                 href="/about"
-                className="text-[32px] font-medium leading-none text-[#111111] transition-opacity duration-200"
+                className="text-[32px] font-medium leading-none text-[#18191A] dark:text-[#F2F2F2] transition-opacity duration-200"
               >
                 О нас
               </Link>
               <Link
                 href="/contacts"
-                className="text-[32px] font-medium leading-none text-[#111111] transition-opacity duration-200"
+                className="text-[32px] font-medium leading-none text-[#18191A]  dark:text-[#F2F2F2] transition-opacity duration-200"
               >
                 Контакты
               </Link>
@@ -154,21 +160,23 @@ export function Footer() {
             {/* Contacts */}
             <div>
               <div className="mb-8">
-                <p className="mb-2 text-[14px] text-[#434547]">Email:</p>
+                <p className="mb-2 text-[14px] text-[#434547] dark:text-[#E5E5E5]">
+                  Email:
+                </p>
                 <a
                   href="mailto:Hello@Aspekt.com"
-                  className="text-[16px] text-[#111111] transition-opacity duration-200"
+                  className="text-[16px] text-[#18191A] dark:text-[#F2F2F2] transition-opacity duration-200"
                 >
                   Hello@Aspekt.com
                 </a>
               </div>
               <div>
-                <p className="mb-2 text-[14px] text-[#434547]">
+                <p className="mb-2 text-[14px] text-[#434547] dark:text-[#E5E5E5]">
                   Номер телефона:
                 </p>
                 <a
                   href="tel:+996995502598"
-                  className="text-[16px] text-[#111111] transition-opacity duration-200"
+                  className="text-[16px] text-[#18191A] dark:text-[#F2F2F2] transition-opacity duration-200"
                 >
                   +996 (995) 502 - 598
                 </a>
@@ -177,10 +185,12 @@ export function Footer() {
 
             {/* Socials */}
             <div>
-              <p className="mb-6 text-[14px] text-[#434547]">Следите за нами</p>
+              <p className="mb-6 text-[14px] text-[#434547] dark:text-[#E5E5E5]">
+                Следите за нами
+              </p>
               <div className="flex flex-col gap-8">
                 <a href="#" className="group flex items-start gap-[8px]">
-                  <span className="border-b border-[#111111] text-[16px] leading-[1] text-[#18191A]">
+                  <span className="border-b border-[#111111] dark:border-[#f2f2f2] text-[16px] leading-[1] text-[#18191A] dark:text-[#E5E5E5]">
                     Instagram
                   </span>
                   <ArrowUpRight
@@ -189,7 +199,7 @@ export function Footer() {
                   />
                 </a>
                 <a href="#" className="group flex items-start gap-[8px]">
-                  <span className="border-b border-[#111111] text-[16px] leading-[1] text-[#18191A]">
+                  <span className="border-b border-[#111111] dark:border-[#f2f2f2] text-[16px] leading-[1] text-[#18191A] dark:text-[#E5E5E5]">
                     Telegram
                   </span>
                   <ArrowUpRight
@@ -204,11 +214,11 @@ export function Footer() {
           {/* Bottom bar */}
           <div className="grid grid-cols-4 items-center max-w-[1040px] ml-22">
             <div />
-            <p className="text-[12px] text-[#434547]">
+            <p className="text-[12px] text-[#434547] dark:text-[#C7C7C7]">
               Политика конфиденциальности
             </p>
             <div />
-            <p className="justify-self-end text-[12px] text-[#434547]">
+            <p className="justify-self-end text-[12px] text-[#434547] dark:text-[#C7C7C7]">
               © 2026 Aspekt design. Все права защищены
             </p>
           </div>

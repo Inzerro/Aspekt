@@ -226,7 +226,7 @@ export function ContactSection() {
 
   return (
     <section id="contact" className="px-[16px] md:px-[80px] py-[40px]">
-      <div className="rounded-[16px] bg-[#18191A] px-[12px] py-[24px] md:px-[36px] md:py-[28px] md:min-h-[546px]">
+      <div className="rounded-[16px] bg-[#18191A] dark:bg-[#232425] px-[12px] py-[24px] md:px-[36px] md:py-[28px] md:min-h-[546px]">
         {/* TOP ROW */}
         <div className="flex flex-col gap-[24px] md:flex-row md:items-start md:justify-between">
           {/* TITLE + TABS */}
@@ -235,7 +235,7 @@ export function ContactSection() {
               Обсудить проект
             </h2>
 
-            <div className="mt-[22px] w-full inline-flex rounded-full bg-[#2A2B2C] p-[3px]">
+            <div className="mt-[22px] w-full inline-flex rounded-full bg-[#2A2B2C] dark:bg-[#18191A] p-[3px]">
               {SERVICE_OPTIONS.map((item) => (
                 <button
                   key={item.full}
@@ -245,7 +245,7 @@ export function ContactSection() {
                   {selectedService === item.full && (
                     <motion.div
                       layoutId="tab"
-                      className="absolute inset-0 rounded-full bg-[#18191A]"
+                      className="absolute inset-0 rounded-full bg-[#18191A] dark:bg-[#232425]"
                     />
                   )}
                   <span className="relative z-10 md:hidden">{item.short}</span>
@@ -288,7 +288,7 @@ export function ContactSection() {
         <div className="mt-[28px] grid grid-cols-1 md:grid-cols-3 gap-x-[18px] gap-y-[28px]">
           <input
             placeholder="Ваше имя *"
-            className="w-full bg-transparent border-b border-[#333] pb-4 text-[18px] text-white outline-none placeholder:text-[#B5B5B5]"
+            className="w-full bg-transparent border-b border-[#2D2E2F] pb-4 text-[18px] text-white outline-none placeholder:text-[#B5B5B5]"
           />
 
           <input
@@ -309,9 +309,10 @@ export function ContactSection() {
           <div className="col-span-1 md:col-span-3">
             <textarea
               placeholder="Короткое описание проекта"
-              className="w-full resize-none bg-transparent text-white text-[18px] outline-none placeholder:text-[#B5B5B5]"
+              rows={1}
+              className="w-full resize-none bg-transparent text-white text-[18px] outline-none placeholder:text-[#B5B5B5] overflow-y-auto"
             />
-            <div className="relative -mt-[16px] border-b border-[#333]" />
+            <div className="relative mt-[13px] border-b border-[#333]" />
             <p className="mt-[10px] text-[14px] text-white/50">
               Например: Сервис покупки и бронирования авиабилетов
             </p>

@@ -56,7 +56,7 @@ export function ApproachSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="text-[28px] font-medium leading-none text-[#18191A] md:text-[32px]"
+            className="text-[28px] font-medium leading-none text-[#18191A] dark:text-[#f2f2f2] md:text-[32px]"
           >
             Продуктовый подход
           </motion.h2>
@@ -66,7 +66,7 @@ export function ApproachSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.1 }}
-            className="mb-[32px] mt-7 max-w-[420px] text-[18px] leading-[1.5] text-[#18191A] md:mt-0 md:justify-self-end"
+            className="mb-[32px] mt-7 max-w-[420px] text-[18px] leading-[1.5] text-[#18191A] dark:text-[#f2f2f2] md:mt-0 md:justify-self-end"
           >
             Работаем итерациями, подключаемся на любом этапе дизайна
           </motion.p>
@@ -85,29 +85,29 @@ export function ApproachSection() {
                 ease: "easeOut",
                 delay: index * 0.15,
               }}
-              className="rounded-[24px] bg-[#F2F3F5] p-[24px]"
+              className="rounded-[24px] bg-[#F2F3F5] dark:bg-[#232425] pt-[16px] pr-[24px] pl-[24px] pb-[16px]"
             >
               <div className="flex flex-col gap-[32px]">
                 <div className="flex flex-col gap-[24px]">
-                  <h3 className="text-[20px] font-medium leading-[1.15] text-[#18191A]">
+                  <h3 className="text-[20px] font-medium leading-[1.15] text-[#18191A] dark:text-[#f2f2f2]">
                     {step.title}
                   </h3>
+                  <span
+                    className={`inline-flex h-[36px] items-center justify-center rounded-full bg-[#18191A] text-[14px] font-medium text-white ${tagWidths[step.tag]}`}
+                  >
+                    {step.tag}
+                  </span>
                   <ul className="flex flex-col gap-[20px]">
                     {step.items.map((item) => (
                       <li
                         key={item}
-                        className="text-[14px] leading-[1.4] text-[#18191A]"
+                        className="text-[14px] leading-[1.] text-[#18191A] dark:text-[#f2f2f2]"
                       >
                         {item}
                       </li>
                     ))}
                   </ul>
                 </div>
-                <span
-                  className={`inline-flex h-[36px] items-center justify-center rounded-full bg-[#111111] text-[14px] font-medium text-white ${tagWidths[step.tag]}`}
-                >
-                  {step.tag}
-                </span>
               </div>
             </motion.div>
           ))}
@@ -119,7 +119,7 @@ export function ApproachSection() {
             {Array.from({ length: 12 }).map((_, i) => (
               <div
                 key={i}
-                className="border-l border-dashed border-[#D9D9D9]"
+                className="border-l border-dashed border-[#D9D9D9] dark:border-[#2D2E2F]"
               />
             ))}
           </div>
@@ -138,10 +138,10 @@ export function ApproachSection() {
                 }}
                 className={`flex ${positionClass[step.position]}`}
               >
-                <div className="w-full max-w-[524px] rounded-[16px] bg-[#F2F3F5] px-[24px] py-[16px]">
+                <div className="w-full max-w-[524px] rounded-[16px] bg-[#F2F3F5] dark:bg-[#232425] px-[24px] py-[16px]">
                   <div className="flex min-h-[116px] justify-between gap-8">
                     <div className="flex flex-col justify-between">
-                      <p className="text-[20px] font-medium text-[#18191A]">
+                      <p className="text-[20px] font-medium text-[#18191A] dark:text-[#f2f2f2]">
                         {step.title}
                       </p>
                       <span className="inline-flex w-fit items-center rounded-full bg-[#18191A] px-5 py-3 text-[14px] font-medium text-white">
@@ -152,7 +152,7 @@ export function ApproachSection() {
                       {step.items.map((item) => (
                         <p
                           key={item}
-                          className="text-[14px] leading-[20px] text-[#18191A]"
+                          className="text-[14px] leading-[20px] text-[#18191A] dark:text-[#f2f2f2]"
                         >
                           {item}
                         </p>

@@ -164,7 +164,7 @@ export default function AboutPage() {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.15 }}
-            className="text-[18px] leading-[32px] font-normal text-[#18191A] md:text-[24px]"
+            className="text-[18px] leading-[32px] font-normal text-[#18191A] dark:text-[#F2F2F2] md:text-[24px]"
           >
             Мы проектируем сайты и приложения, которые легко масштабируются и
             приносят бизнесу результат — без зависимости от разработчиков
@@ -209,7 +209,7 @@ export default function AboutPage() {
       </section>
 
       {/* VALUES */}
-      <section className="mt-[80px] px-[24px] md:mt-[48px] md:ml-[80px] md:mr-[80px] md:px-0">
+      <section className="mt-[48px] px-[24px] md:mt-[48px] md:ml-[80px] md:mr-[80px] md:px-0">
         <div className="grid grid-cols-1 gap-[60px] lg:grid-cols-2 lg:gap-[120px]">
           <div>
             <motion.h2
@@ -227,12 +227,12 @@ export default function AboutPage() {
               <motion.div
                 key={index}
                 {...fadeUp(index * 0.1)}
-                className={`border-b border-black/10 py-8 ${index === 0 ? "pb-8 pt-0" : ""}`}
+                className={`border-b border-black/10 dark:border-[#2D2E2F] py-8 ${index === 0 ? "pb-8 pt-0" : ""}`}
               >
                 <h3 className="text-[20px] leading-[32px] font-medium md:text-[24px]">
                   {item.title}
                 </h3>
-                <p className="mt-[16px] text-[16px] leading-[24px] text-black/60">
+                <p className="mt-[16px] text-[16px] leading-[24px] text-[#18191A] dark:text-[#C7C7C7]">
                   {item.text}
                 </p>
               </motion.div>
@@ -245,7 +245,7 @@ export default function AboutPage() {
       <section className="mt-[100px] px-[24px] md:mt-[180px] md:ml-[80px] md:mr-[80px] md:px-0">
         <motion.h2
           {...fadeUp()}
-          className="mb-[40px] text-left text-[32px] leading-[40px] font-medium tracking-[-0.03em] md:mb-12 md:text-center md:leading-[60px]"
+          className="mb-[40px] text-left text-[32px] leading-[40px] font-medium tracking-[-0.03em] md:mb-12 md:text-center md:leading-[60px] dark:text-[#F2F2F2]"
         >
           Meet our team
         </motion.h2>
@@ -255,7 +255,7 @@ export default function AboutPage() {
             <motion.div
               key={index}
               {...fadeUp(index * 0.1)}
-              className="flex items-center gap-[16px] h-[68px] w-full rounded-[12px] bg-[#F2F3F5] p-[16px] md:p-5 md:w-[416px]"
+              className="flex items-center gap-[16px] h-[68px] w-full rounded-[12px] bg-[#F2F3F5] dark:bg-[#232425] p-[16px] md:p-5 md:w-[416px]"
             >
               <motion.div
                 initial={{ opacity: 0, scale: 0.96 }}
@@ -278,10 +278,10 @@ export default function AboutPage() {
               </motion.div>
 
               <div className="min-w-0">
-                <h3 className="text-[18px] leading-[20px] font-medium truncate">
+                <h3 className="text-[18px] leading-[20px] font-medium truncate dark:text-[#F2F2F2]">
                   {member.name}
                 </h3>
-                <p className="mt-[4px] text-[14px] leading-[24px] text-[#18191A] truncate">
+                <p className="mt-[4px] text-[14px] leading-[24px] text-[#18191A] truncate dark:text-[#C7C7C7]">
                   {member.position}
                 </p>
               </div>
@@ -296,7 +296,7 @@ export default function AboutPage() {
           <div>
             <motion.h2
               {...fadeUp()}
-              className="text-[32px] font-medium leading-[1] tracking-[-0.03em]"
+              className="text-[32px] font-medium leading-[1]  dark:text-[#F2F2F2]"
             >
               О нас
             </motion.h2>
@@ -307,7 +307,7 @@ export default function AboutPage() {
               <motion.p
                 key={index}
                 {...fadeUp(index * 0.1 + 0.1)}
-                className="text-[16px] leading-[24px] text-[#434547]"
+                className="text-[16px] leading-[24px] text-[#434547] dark:text-[#C7C7C7]"
               >
                 {text}
               </motion.p>

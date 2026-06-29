@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { ThemeProvider } from "@/components/theme-provider";
 import { Preloader } from "@/components/preloader";
 import { ScrollToTop } from "@/components/scroll-to-top";
 import "./globals.css";
@@ -26,11 +27,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ru" className={`${inter.variable} bg-background`}>
+    <html lang="ru" suppressHydrationWarning className={inter.variable}>
       <body className="font-sans antialiased">
-        <ScrollToTop />
-        <Preloader />
-        {children}
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
+          <ScrollToTop />
+          <Preloader />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

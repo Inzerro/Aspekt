@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { Golos_Text } from "next/font/google";
 import { RadianceText } from "@/components/RadianceText";
 import { MobileRadianceText } from "@/components/MobileRadianceText";
@@ -10,6 +10,17 @@ const golosText = Golos_Text({
   subsets: ["latin", "cyrillic"],
   weight: ["400", "500"],
 });
+
+function isPageReload() {
+  try {
+    const navEntries = performance.getEntriesByType(
+      "navigation",
+    ) as PerformanceNavigationTiming[];
+    return navEntries.length > 0 && navEntries[0].type === "reload";
+  } catch {
+    return false;
+  }
+}
 
 export function HeroSection() {
   const [datetime, setDatetime] = useState({
@@ -25,18 +36,27 @@ export function HeroSection() {
   const [loaded, setLoaded] = useState(false);
   const [firstLoad, setFirstLoad] = useState(false);
 
+  // Анимация заголовка играет только:
+  // 1) при первом визите за сессию (нет флага в sessionStorage)
+  // 2) при полном reload страницы (флаг сбрасывается принудительно)
+  // При обычном SPA-переходе между страницами — анимация не повторяется.
   useEffect(() => {
+    if (isPageReload()) {
+      sessionStorage.removeItem("preloader-finished");
+    }
+
     const finished = sessionStorage.getItem("preloader-finished");
 
     if (finished) {
+      // Анимация уже была проиграна в этой сессии — показываем сразу
       setLoaded(true);
-      setFirstLoad(true); // ← было false
+      setFirstLoad(false);
+      return;
     }
 
     const handler = () => {
       setLoaded(true);
       setFirstLoad(true);
-
       sessionStorage.setItem("preloader-finished", "true");
     };
 
@@ -198,13 +218,31 @@ export function HeroSection() {
 
         <div className="space-y-5">
           <div className="grid w-full grid-cols-[max-content_max-content_1fr_max-content] items-center gap-x-16 text-foreground">
-            <span className="text-[16px] tabular-nums dark:text-[#F2F2F2]">
-              {datetime.day}, {datetime.date} {datetime.time}
-            </span>
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              animate={loaded ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
+              transition={{
+                duration: 0.7,
+                ease: [0.25, 0.46, 0.45, 0.94],
+              }}
+              className={`${golosText.className} max-w-[500px] text-center text-[16px] leading-[26px] text-foreground dark:text-[#F2F2F2]`}
+            >
+              <span className="text-[16px] tabular-nums dark:text-[#F2F2F2]">
+                {datetime.day}, {datetime.date} {datetime.time}
+              </span>
+            </motion.p>
 
-            <p className="text-[16px] dark:text-[#F2F2F2]">
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              animate={loaded ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
+              transition={{
+                duration: 0.7,
+                ease: [0.25, 0.46, 0.45, 0.94],
+              }}
+              className={`${golosText.className} max-w-[500px] text-center text-[16px] leading-[26px] text-foreground dark:text-[#F2F2F2]`}
+            >
               Бишкек, Кыргызстан
-            </p>
+            </motion.p>
 
             <span />
 

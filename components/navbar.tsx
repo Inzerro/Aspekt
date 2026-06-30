@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useLayoutEffect } from "react";
+import { createPortal } from "react-dom";
 import { usePathname } from "next/navigation";
 import { ArrowUpRight, X } from "lucide-react";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
@@ -17,15 +18,15 @@ const links = [
 ];
 
 const menuVariants: Variants = {
-  hidden: { opacity: 0, y: "100%" },
+  hidden: { opacity: 0, y: "100vh" },
   visible: {
     opacity: 1,
-    y: "0%",
+    y: "0vh",
     transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] },
   },
   exit: {
     opacity: 0,
-    y: "100%",
+    y: "100vh",
     transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1] },
   },
 };
@@ -82,15 +83,13 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (open) {
       const scrollY = window.scrollY;
-      requestAnimationFrame(() => {
-        document.body.style.position = "fixed";
-        document.body.style.top = `-${scrollY}px`;
-        document.body.style.width = "100%";
-        document.documentElement.style.overflow = "hidden";
-      });
+      document.body.style.position = "fixed";
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.width = "100%";
+      document.documentElement.style.overflow = "hidden";
     } else {
       const scrollY = document.body.style.top;
       document.body.style.position = "";
@@ -125,6 +124,122 @@ export function Navbar() {
 
   const isDark = mounted && theme === "dark";
 
+  const mobileMenu = (
+    <AnimatePresence>
+      {open && (
+        <motion.div
+          variants={menuVariants}
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+          style={{ willChange: "transform, opacity" }}
+          className="fixed top-0 left-0 right-0 bottom-0 z-[99999] flex flex-col overflow-hidden bg-white dark:bg-[#18191A] px-[16px] pt-[24px] pb-[24px] md:hidden"
+        >
+          {/* Top */}
+          <motion.div
+            variants={itemVariants}
+            initial="hidden"
+            animate="visible"
+            custom={0}
+            className="flex items-center justify-between"
+          >
+            <div className="flex items-center gap-[8px]">
+              <div className="flex h-[40px] w-[40px] items-center justify-center rounded-full bg-[#F2F3F5] dark:bg-white/10">
+                <Image
+                  src="/icons/Light.icon.png"
+                  alt="icon"
+                  width={24}
+                  height={24}
+                  className={isDark ? "invert" : ""}
+                />
+              </div>
+              <span className="text-[24px] font-medium text-[#18191A] dark:text-[#F2F2F2]">
+                Меню
+              </span>
+            </div>
+            <button
+              onClick={() => setOpen(false)}
+              className="flex h-8 w-6 items-center justify-center"
+            >
+              <X size={28} strokeWidth={2} className="dark:text-[#C7C7C7]" />
+            </button>
+          </motion.div>
+
+          {/* Links */}
+          <div className="mt-[32px]">
+            {links.map((link, i) => (
+              <motion.div
+                key={link.href}
+                variants={itemVariants}
+                initial="hidden"
+                animate="visible"
+                custom={i + 1}
+              >
+                <Link
+                  href={link.href}
+                  onClick={() => setOpen(false)}
+                  className="flex items-center justify-between border-b border-[#E6E8EB] dark:border-[#2D2E2F] py-[20px]"
+                >
+                  <span className="text-[32px] leading-none font-medium text-[#18191A] dark:text-[#F2F2F2]">
+                    {link.label}
+                  </span>
+                  <ArrowUpRight
+                    size={32}
+                    strokeWidth={2}
+                    className="text-[#7A7A7A] dark:text-[#C7C7C7]"
+                  />
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Button */}
+          <motion.button
+            variants={itemVariants}
+            initial="hidden"
+            animate="visible"
+            custom={links.length + 1}
+            onClick={() => {
+              setOpen(false);
+              if (pathname === "/") {
+                setTimeout(() => scrollToContact(), 300);
+              } else {
+                router.push("/#contact");
+              }
+            }}
+            className="mt-[40px] flex h-[56px] w-full items-center justify-between rounded-[44px] bg-[#F53D18] pl-[32px] pr-[2px] text-white"
+          >
+            <span className="text-[18px] font-medium">Обсудить проект</span>
+            <div className="flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-full bg-white text-black">
+              <ArrowUpRight size={26} strokeWidth={2} />
+            </div>
+          </motion.button>
+
+          {/* Bottom Logo */}
+          <motion.div
+            variants={bottomVariants}
+            initial="hidden"
+            animate="visible"
+            className="mt-auto flex items-center justify-center gap-[16px]"
+          >
+            <div className="flex h-[32px] w-[32px] items-center justify-center rounded-full bg-[#18191A] dark:bg-white/10">
+              <Image
+                src="/images/Logo2.png"
+                alt="Aspekt"
+                width={32}
+                height={32}
+                className="object-contain dark:invert"
+              />
+            </div>
+            <span className="text-[16px] font-medium text-[#18191A] dark:text-white">
+              Aspekt
+            </span>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
@@ -158,7 +273,7 @@ export function Navbar() {
                     className={`flex h-[40px] items-center justify-center rounded-full px-7 text-[16px] font-normal transition-all duration-200 ${
                       pathname === link.href
                         ? "bg-white dark:bg-[#18191A] text-[#111111] dark:text-white shadow-[0_2px_8px_rgba(0,0,0,0.06)]"
-                        : "text-[#111111] dark:text-white/80 hover:bg-[#18191A] dark:hover:bg-[#18191A]"
+                        : "text-[#111111] dark:text-white/80 hover:bg-white dark:hover:bg-[#18191A]"
                     }`}
                   >
                     {link.label}
@@ -221,126 +336,11 @@ export function Navbar() {
             )}
           </button>
         </nav>
-
-        {/* Mobile Menu */}
-        <AnimatePresence>
-          {open && (
-            <motion.div
-              variants={menuVariants}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-              style={{ willChange: "transform" }}
-              className="fixed top-0 left-0 right-0 bottom-0 z-[99999] flex flex-col overflow-hidden bg-white dark:bg-[#0f0f0f] px-[16px] pt-[24px] pb-[24px] md:hidden"
-            >
-              {/* Top */}
-              <motion.div
-                variants={itemVariants}
-                initial="hidden"
-                animate="visible"
-                custom={0}
-                className="flex items-center justify-between"
-              >
-                <div className="flex items-center gap-[8px]">
-                  <div className="flex h-[40px] w-[40px] items-center justify-center rounded-full bg-[#F2F3F5] dark:bg-white/10">
-                    <Image
-                      src="/icons/Light.icon.png"
-                      alt="icon"
-                      width={24}
-                      height={24}
-                      className={isDark ? "invert" : ""}
-                    />
-                  </div>
-                  <span className="text-[24px] font-medium text-[#18191A] dark:text-[#F2F2F2]">
-                    Меню
-                  </span>
-                </div>
-                <button
-                  onClick={() => setOpen(false)}
-                  className="flex h-8 w-6 items-center justify-center"
-                >
-                  <X
-                    size={28}
-                    strokeWidth={2}
-                    className="dark:text-[#C7C7C7]"
-                  />
-                </button>
-              </motion.div>
-
-              {/* Links */}
-              <div className="mt-[32px]">
-                {links.map((link, i) => (
-                  <motion.div
-                    key={link.href}
-                    variants={itemVariants}
-                    initial="hidden"
-                    animate="visible"
-                    custom={i + 1}
-                  >
-                    <Link
-                      href={link.href}
-                      onClick={() => setOpen(false)}
-                      className="flex items-center justify-between border-b border-[#E6E8EB] dark:border-[#2D2E2F] py-[20px]"
-                    >
-                      <span className="text-[32px] leading-none font-medium text-[#18191A] dark:text-[#F2F2F2]">
-                        {link.label}
-                      </span>
-                      <ArrowUpRight
-                        size={32}
-                        strokeWidth={2}
-                        className="text-[#7A7A7A] dark:text-[#C7C7C7]"
-                      />
-                    </Link>
-                  </motion.div>
-                ))}
-              </div>
-
-              {/* Button */}
-              <motion.button
-                variants={itemVariants}
-                initial="hidden"
-                animate="visible"
-                custom={links.length + 1}
-                onClick={() => {
-                  setOpen(false);
-                  if (pathname === "/") {
-                    setTimeout(() => scrollToContact(), 300);
-                  } else {
-                    router.push("/#contact");
-                  }
-                }}
-                className="mt-[40px] flex h-[56px] w-full items-center justify-between rounded-[44px] bg-[#F53D18] pl-[32px] pr-[2px] text-white"
-              >
-                <span className="text-[18px] font-medium">Обсудить проект</span>
-                <div className="flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-full bg-white text-black">
-                  <ArrowUpRight size={26} strokeWidth={2} />
-                </div>
-              </motion.button>
-
-              {/* Bottom Logo */}
-              <motion.div
-                variants={bottomVariants}
-                initial="hidden"
-                animate="visible"
-                className="mt-auto flex items-center justify-center gap-[16px]"
-              >
-                <div className="flex h-[32px] w-[32px] items-center justify-center rounded-full bg-[#18191A] dark:bg-white/10">
-                  <Image
-                    src="/images/Logo2.png"
-                    alt="Aspekt"
-                    width={32}
-                    height={32}
-                    className="object-contain dark:invert"
-                  />
-                </div>
-                <span className="text-[16px] font-medium text-[#18191A] dark:text-white">
-                  Aspekt
-                </span>
-              </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>
       </div>
+
+      {/* Мобильное меню рендерится через портал в document.body,
+          чтобы не наследовать containing block от header (backdrop-blur-lg) */}
+      {mounted && createPortal(mobileMenu, document.body)}
     </header>
   );
 }
